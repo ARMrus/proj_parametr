@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Proj2Web</title>
+<style>
+ td {text-align: center;}
+</style>
+<script type="text/javascript">
+var d = document;
+var last_id = 0;
+function add_value_f() {
+     
+    var tbody = d.getElementById('v_table').getElementsByTagName('tbody')[0];
+    var row = d.createElement("tr");
+    tbody.appendChild(row);
+ 
+    // создаем ячейки в вышесозданной строке
+    var td1 = d.createElement("td");
+    var td2 = d.createElement("td");
+    var td3 = d.createElement("td");
+    var td4 = d.createElement("td");
+    var td5 = d.createElement("td");
+    var td6 = d.createElement("td");
+    var td7 = d.createElement("td");
+    var td8 = d.createElement("td"); 
+    var td9 = d.createElement("td");
+    var td10 = d.createElement("td");
+    var td11 = d.createElement("td");
+    var td12 = d.createElement("td");
+    var td13 = d.createElement("td");
+    var td14 = d.createElement("td");
+    var td15 = d.createElement("td");
+	
+	row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+	row.appendChild(td5);
+    row.appendChild(td6);
+    row.appendChild(td7);
+    row.appendChild(td8);
+	row.appendChild(td9);
+    row.appendChild(td10);
+    row.appendChild(td11);
+    row.appendChild(td12);
+	row.appendChild(td13);
+    row.appendChild(td14);
+    row.appendChild(td15);
+ 
+	
+    last_id = last_id + 1;
+ 
+    // добавляем формы ввода в ячейки
+    td1.innerHTML = '<input type="radio" size="11" name="center" value="'+last_id+'">';
+    td2.innerHTML = '<input type="text" size="11" name="ves['+last_id+']">';
+	td3.innerHTML = '<input type="text" size="11" name="name['+last_id+']">';
+    td4.innerHTML = '<input type="text" size="11" name="XDDDD['+last_id+']">';
+	td5.innerHTML = '<input type="text" size="2" name="X_DD['+last_id+']" onchange="dodx('+last_id+')">';
+	td6.innerHTML = '<input type="text" size="2" name="X_MM['+last_id+']" onchange="dodx('+last_id+')">';
+	td7.innerHTML = '<input type="text" size="7" name="X_SS['+last_id+']" onchange="dodx('+last_id+')">';
+	td8.innerHTML = '<input type="text" size="11" name="XMMMM['+last_id+']">';
+    td9.innerHTML = '<input type="text" size="11" name="YDDDD['+last_id+']">';
+	td10.innerHTML = '<input type="text" size="2" name="Y_DD['+last_id+']" onchange="dody('+last_id+')">';
+	td11.innerHTML = '<input type="text" size="2" name="Y_MM['+last_id+']" onchange="dody('+last_id+')">';
+	td12.innerHTML = '<input type="text" size="7" name="Y_SS['+last_id+']" onchange="dody('+last_id+')">';
+	td13.innerHTML = '<input type="text" size="11" name="YMMMM['+last_id+']">';
+	td14.innerHTML = '<input type="text" size="11" name="NVX['+last_id+']">';
+	td15.innerHTML = '<input type="text" size="11" name="NVY['+last_id+']">';
+}
+function del_value_f() {
+    var tbody = d.getElementById('v_table').getElementsByTagName('tbody')[0];
+	tbody.deleteRow(-1);
+}
+function dodx(rid){
+var myDD = d.getElementsByName('X_DD['+rid+']')[0];
+var myMM = d.getElementsByName('X_MM['+rid+']')[0];
+var mySS = d.getElementsByName('X_SS['+rid+']')[0];
+var myDDDD = d.getElementsByName('XDDDD['+rid+']')[0];
+myDDDD.value = +myDD.value + (+myMM.value/60) + (+mySS.value/3600);
+}
+function dody(rid){
+var myDD = d.getElementsByName('Y_DD['+rid+']')[0];
+var myMM = d.getElementsByName('Y_MM['+rid+']')[0];
+var mySS = d.getElementsByName('Y_SS['+rid+']')[0];
+var myDDDD = d.getElementsByName('YDDDD['+rid+']')[0];
+myDDDD.value = +myDD.value + (+myMM.value/60) + (+mySS.value/3600);
+}
+</script>
+</head>
+
+<body>
+<form method="post">
+<table border="0" width="100%" align="center" id="v_table">
+<thead>
+<tr>
+<th>Центр</th>
+<th>Вес</th>
+<th>Название</th>
+<th>XX.XXXXX</th>
+<th>DD</th>
+<th>MM</th>
+<th>SS.SSSS</th>
+<th>Метры</th>
+<th>YY.YYYYY</th>
+<th>DD</th>
+<th>MM</th>
+<th>SS.SSSS</th>
+<th>Метры</th>
+<th>НевязкаX</th>
+<th>НевязкаY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><input type="radio" name="center" value="0"></td>
+    <td><input type="text" size="11" name="ves[0]"></td>
+    <td><input type="text" size="11" name="name[0]"></td>
+    <td><input type="text" size="11" name="XDDDD[0]"></td>
+	<td><input type="text" size="2" name="X_DD[0]" onchange="dodx(0)"></td>
+	<td><input type="text" size="2" name="X_MM[0]" onchange="dodx(0)"></td>
+	<td><input type="text" size="7" name="X_SS[0]" onchange="dodx(0)"></td>
+	<td><input type="text" size="11" name="XMMMM[0]"></td>
+    <td><input type="text" size="11" name="YDDDD[0]"></td>
+	<td><input type="text" size="2" name="Y_DD[0]" onchange="dody(0)"></td>
+	<td><input type="text" size="2" name="Y_MM[0]" onchange="dody(0)"></td>
+	<td><input type="text" size="7" name="Y_SS[0]" onchange="dody(0)"></td>
+	<td><input type="text" size="11" name="YMMMM[0]"></td>
+	<td><input type="text" size="11" name="NVX[0]"></td>
+	<td><input type="text" size="11" name="NVY[0]"></td>
+</tr>
+</tbody>
+</table>
+ 
+<input type="button" onclick="add_value_f()" value="+"/>
+<input type="button" onclick="del_value_f()" value="-"/>
+<input type="submit" name="send" value="Посчитать">
+</form>
+</body>
+
+</html>
