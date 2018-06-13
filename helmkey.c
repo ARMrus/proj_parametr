@@ -36,19 +36,19 @@ int main(int argc, char *argv[])
   double mu, theta;
   double yh[2];
   int i;
-  FILE *fp0, *fp1, *fp2;
+  FILE *fp0, *fp1, *fp2;    // предлагаю не работать с файлами, а ввод вывод через переменные делать, чтобы не терять время на запись на диск и не тратить ресурсы сервера попусту
  
   if (argc < 3) {
     printf("Usage: helmkey <coord1> <coord2>\n");
     exit(EXIT_FAILURE);
   }
  
-  if ((fp0 = fopen(argv[1], "r")) == NULL) {
+  if ((fp0 = fopen(argv[1], "r")) == NULL) {    // предлагаю не работать с файлами, а ввод вывод через переменные делать, чтобы не терять время на запись на диск и не тратить ресурсы сервера попусту
     printf("can't open %s\n", argv[1]);
     exit(EXIT_FAILURE);
   }
  
-  if ((fp1 = fopen(argv[2], "r")) == NULL) {
+  if ((fp1 = fopen(argv[2], "r")) == NULL) {    // предлагаю не работать с файлами, а ввод вывод через переменные делать, чтобы не терять время на запись на диск и не тратить ресурсы сервера попусту
     printf("can't open %s\n", argv[2]);
     exit(EXIT_FAILURE);
   }
@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
     s[3] += y[1];
     s[4] += 1.;
   }
-  rewind(fp0);
-  rewind(fp1);
+  rewind(fp0);  //предлагаю сделать ввыод в переменную, а не в файл
+  rewind(fp1);  //предлагаю сделать ввыод в переменную, а не в файл
  
   /* centrum gravitatis */
   for (i = 0; i < 2; i++) {
@@ -92,8 +92,8 @@ int main(int argc, char *argv[])
     s[5] += dx[0] * dy[1];
     s[6] += dx[1] * dy[1];
   }
-  rewind(fp0);
-  rewind(fp1);
+  rewind(fp0);  //предлагаю сделать ввыод в переменную, а не в файл
+  rewind(fp1);  //предлагаю сделать ввыод в переменную, а не в файл
  
   /* Helmert parameters */
   det = s[0] + s[2];
@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 	 mu, h[2], h[5], theta / M_PI * 180.);
  
   /* output residuals */
-  if ((fp2 = fopen("var.csv", "w")) == NULL) {
+  if ((fp2 = fopen("var.csv", "w")) == NULL) {  //предлагаю сделать ввыод в переменную, а не в файл
     printf("can't create %s\n", "var.csv");
     exit(EXIT_FAILURE);
   }
@@ -125,9 +125,9 @@ int main(int argc, char *argv[])
     yh[1] = h[3] * x[0] + h[4] * x[1] + h[5];
     fprintf(fp2, "%.3f%c%.3f\n", yh[0] - y[0], SEP, yh[1] - y[1]);
   }
-  fclose(fp2);
-  fclose(fp1);
-  fclose(fp0);
+  fclose(fp2);  //предлагаю сделать ввыод в переменную, а не в файл
+  fclose(fp1);  //предлагаю сделать ввыод в переменную, а не в файл
+  fclose(fp0);  //предлагаю сделать ввыод в переменную, а не в файл
  
   exit(EXIT_SUCCESS);
 }
