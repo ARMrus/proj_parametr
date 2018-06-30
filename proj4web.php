@@ -20,7 +20,7 @@ if(isset($_POST["vvbtn"])){
 	 fclose($catloc);
 
 	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;
-	$myprojstring1 = '/var/www/tst1/public_html/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;
+	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;
 	echo exec($myprojstring0);
 	echo '<div widht="100%"><h2 align="center">';
 	echo exec($myprojstring1);
