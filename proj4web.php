@@ -21,7 +21,7 @@ if(isset($_POST["vvbtn"])){
 	 fclose($catloc);//Закрываем файлы
 
 	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
-	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки
+	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки*/
 	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey 
 	
 	echo exec($myprojstring0); //выводим ответ proj
@@ -53,7 +53,7 @@ if(isset($_POST["vvbtn"])){
 	 
 	
 	vvhtmlhead(count($_POST["name"]));//печатаем шапку 
-	vvhtmltbl(count($_POST["name"]));|//печатаем таблицу
+	vvhtmltbl(count($_POST["name"]));//печатаем таблицу
 	vvhtmlfoot();//завершаем страницу
 /*Здесь секция расчета заканчивается*/
  }elseif($_POST["vvbtn"] == "+"){
