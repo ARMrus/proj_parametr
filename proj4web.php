@@ -1,57 +1,61 @@
 <?php
 if(isset($_POST["vvbtn"])){
  if($_POST["vvbtn"] == "Расчет"){
-	 $myprefix=str_replace('.','',str_replace(' ','',microtime()));
-	 $catll_name = sys_get_temp_dir().'/'.$myprefix.'-catll.tsv';
-	 $cat_name = sys_get_temp_dir().'/'.$myprefix.'-cat.tsv';
-	 $catloc_name = sys_get_temp_dir().'/'.$myprefix.'-catloc.tsv';
-	 $var_name = sys_get_temp_dir().'/'.$myprefix.'-var.tsv';
+/*Собственно здесь начинается секция расчета*/    
+	 $myprefix=str_replace('.','',str_replace(' ','',microtime()));//создаем префикс к именам файлов из времени
+	 $catll_name = sys_get_temp_dir().'/'.$myprefix.'-catll.tsv';//создаем имена необходимых файлов, включая полный путь
+	 $cat_name = sys_get_temp_dir().'/'.$myprefix.'-cat.tsv';//создаем имена необходимых файлов, включая полный путь
+	 $catloc_name = sys_get_temp_dir().'/'.$myprefix.'-catloc.tsv';//создаем имена необходимых файлов, включая полный путь
+	 $var_name = sys_get_temp_dir().'/'.$myprefix.'-var.tsv';//создаем имена необходимых файлов, включая полный путь
 	 
-	 $catll = fopen($catll_name, 'w+');
-	 $catloc = fopen($catloc_name, 'w+');
-	 for($i=0; $i<count($_POST["XDDDD"]); $i++){
-		 if (isset($_POST["active$i"]) and $_POST["active$i"] == $i){
+	 $catll = fopen($catll_name, 'w+');//Открываем файлы на запись
+	 $catloc = fopen($catloc_name, 'w+');//Открываем файлы на запись
+	 for($i=0; $i<count($_POST["XDDDD"]); $i++){//цикл по записям в таблице данных
+		 if (isset($_POST["active$i"]) and $_POST["active$i"] == $i){//если нет флажка неактив записываем данные в файл
 		 }else{
-		 	fwrite($catll, str_replace(',','.',$_POST["XDDDD"][$i].' '.$_POST["YDDDD"][$i])."\n"); // Запись в файл
-		 	fwrite($catloc, str_replace(',','.',$_POST["XMMMM"][$i].' '.$_POST["YMMMM"][$i])."\n"); // Запись в файл
+		 	fwrite($catll, str_replace(',','.',$_POST["XDDDD"][$i].' '.$_POST["YDDDD"][$i])."\n"); // Широту Долготу
+		 	fwrite($catloc, str_replace(',','.',$_POST["XMMMM"][$i].' '.$_POST["YMMMM"][$i])."\n"); // Местная ск
 		 }
 	 }
-	 fclose($catll);
-	 fclose($catloc);
+	 fclose($catll);//Закрываем файлы
+	 fclose($catloc);//Закрываем файлы
 
-	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;
-	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;
-	echo exec($myprojstring0);
-	echo '<div widht="100%"><h2 align="center">';
-	echo exec($myprojstring1);
+	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
+	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки
+	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey 
+	
+	echo exec($myprojstring0); //выводим ответ proj
+	echo '<div widht="100%"><h2 align="center">';//немного приукрасив вывод
+	echo exec($myprojstring1);//выводим ответ helmkey
 	echo '</h2></div>';
-	$var = fopen($var_name, 'r');
+	
+	$var = fopen($var_name, 'r');//открываем файл с невязками для чтения
 	$i=0;
-	while (($buffer = fgets($var)) !== false) {
+	while (($buffer = fgets($var)) !== false) {//Цикд по записям в файле
 		$vvspl = explode(';',$buffer);
-		while((isset($_POST["active$i"]) and $_POST["active$i"] == $i)){
+		while((isset($_POST["active$i"]) and $_POST["active$i"] == $i)){//В неактивные строчки нашей таблички пишем нули
 			$_POST["NVX"][$i] = 0;
 			$_POST["NVY"][$i] = 0;
 			$_POST["NXY"][$i] = 0;
 			$i++;
 		}
-		
+		// В активныее строчки пишем невязки. Общую невязку вычисляем
 		$_POST["NVX"][$i] = $vvspl[0];
 		$_POST["NVY"][$i] = $vvspl[1];
 		$_POST["NXY"][$i] = hypot($vvspl[0],$vvspl[1]);
 		$i++;
 	}
 	 
-	unlink($catll_name);
-	unlink($cat_name);
-	unlink($catloc_name);
-	unlink($var_name);
+	unlink($catll_name);//удаляем файлы
+	unlink($cat_name);//удаляем файлы
+	unlink($catloc_name);//удаляем файлы
+	unlink($var_name);//удаляем файлы
 	 
 	
-	vvhtmlhead(count($_POST["name"]));
-	vvhtmltbl(count($_POST["name"]));
-
-	vvhtmlfoot();
+	vvhtmlhead(count($_POST["name"]));//печатаем шапку 
+	vvhtmltbl(count($_POST["name"]));|//печатаем таблицу
+	vvhtmlfoot();//завершаем страницу
+/*Здесь секция расчета заканчивается*/
  }elseif($_POST["vvbtn"] == "+"){
 	vvhtmlhead(count($_POST["name"])+1);
 	vvhtmltbl(count($_POST["name"])+1);
