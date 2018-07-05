@@ -22,6 +22,9 @@ if(isset($_POST["vvbtn"])){
 
 	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
 	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки*/
+	/*
+	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
+	*/
 	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey 
 	
 	echo exec($myprojstring0); //выводим ответ proj
