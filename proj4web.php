@@ -25,13 +25,11 @@ if(isset($_POST["vvbtn"])){
 	/*
 	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
 	*/
-	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey 
+	$myprojstring1 = '/var/www/tst1/public_html/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey /home/bitrix/www/extranet/proj/
 	
-	echo exec($myprojstring0); //выводим ответ proj
-	echo '<div widht="100%"><h2 align="center">';//немного приукрасив вывод
-	echo exec($myprojstring1);//выводим ответ helmkey
-	echo '</h2></div>';
-	
+	$myhelmout = exec($myprojstring0); //выводим ответ proj
+	$myhelmout = $myhelmout.' '.exec($myprojstring1);//выводим ответ helmkey
+		
 	$var = fopen($var_name, 'r');//открываем файл с невязками для чтения
 	$i=0;
 	while (($buffer = fgets($var)) !== false) {//Цикд по записям в файле
@@ -55,7 +53,7 @@ if(isset($_POST["vvbtn"])){
 	unlink($var_name);//удаляем файлы
 	 
 	
-	vvhtmlhead(count($_POST["name"]));//печатаем шапку 
+	vvhtmlhead(count($_POST["name"]), $myhelmout);//печатаем шапку 
 	vvhtmltbl(count($_POST["name"]));//печатаем таблицу
 	vvhtmlfoot();//завершаем страницу
 /*Здесь секция расчета заканчивается*/
@@ -171,8 +169,8 @@ if(isset($_POST["NXY"][$i])){
 echo '</tr>';
 }
 }
-function vvhtmlhead($vvlast){
- echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Proj4Web</title><style>td {text-align: center;}</style><script type="text/javascript">';
+function vvhtmlhead($vvlast,$vvout){
+ echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Proj4Web</title><style>td {text-align: center;} .center{margin: auto; text-align: center; width: 90%; padding: 10px;}</style><script type="text/javascript">';
  echo "var d = document;
 function dodx(rid){
 var myDD = d.getElementsByName('X_DD['+rid+']')[0];
@@ -204,6 +202,7 @@ myDDDD.value = +myDD.value + (+myMM.value/60) + (+mySS.value/3600);
 }
 ";
  echo '</script></head><body><form method="post">';
+ echo '<div class="center">Получилось: '.$vvout.'</div>';
  echo '<table border="0" width="70%" align="left" id="v_table"><thead><tr>';
  echo '<th>XX.XXXXX</th><th>DD</th><th>MM</th><th>SS.SSSS</th><th>Метры</th>';
  echo '<th>YY.YYYYY</th><th>DD</th><th>MM</th><th>SS.SSSS</th><th>Метры</th>';
