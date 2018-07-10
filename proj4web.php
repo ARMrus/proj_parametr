@@ -20,7 +20,7 @@ if(isset($_POST["vvbtn"])){
 	 fclose($catll);//Закрываем файлы
 	 fclose($catloc);//Закрываем файлы
 
-	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc='.$_POST["CXDDDD"].' +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
+	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc='.$_POST["CXDDDD"].' +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
 	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки*/
 	/*
 	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
