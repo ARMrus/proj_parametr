@@ -25,7 +25,7 @@ if(isset($_POST["vvbtn"])){
 	/*
 	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
 	*/
-	$myprojstring1 = '/var/www/tst1/public_html/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey /home/bitrix/www/extranet/proj/
+	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey /home/bitrix/www/extranet/proj/
 	
 	$myhelmout = exec($myprojstring0); //выводим ответ proj
 	$myhelmout = $myhelmout.' '.exec($myprojstring1);//выводим ответ helmkey
