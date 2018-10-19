@@ -1,13 +1,13 @@
 <?php
 if(isset($_POST["vvbtn"])){
  if($_POST["vvbtn"] == "Расчет"){
-/*Собственно здесь начинается секция расчета*/    
+/*Собственно здесь начинается секция расчета*/
 	 $myprefix=str_replace('.','',str_replace(' ','',microtime()));//создаем префикс к именам файлов из времени
 	 $catll_name = sys_get_temp_dir().'/'.$myprefix.'-catll.tsv';//создаем имена необходимых файлов, включая полный путь
 	 $cat_name = sys_get_temp_dir().'/'.$myprefix.'-cat.tsv';//создаем имена необходимых файлов, включая полный путь
 	 $catloc_name = sys_get_temp_dir().'/'.$myprefix.'-catloc.tsv';//создаем имена необходимых файлов, включая полный путь
 	 $var_name = sys_get_temp_dir().'/'.$myprefix.'-var.tsv';//создаем имена необходимых файлов, включая полный путь
-	 
+
 	 $catll = fopen($catll_name, 'w+');//Открываем файлы на запись
 	 $catloc = fopen($catloc_name, 'w+');//Открываем файлы на запись
 	 for($i=0; $i<count($_POST["XDDDD"]); $i++){//цикл по записям в таблице данных
@@ -26,10 +26,10 @@ if(isset($_POST["vvbtn"])){
 	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
 	*/
 	$myprojstring1 = '/home/bitrix/www/extranet/proj/helmkey '.$cat_name.' '.$catloc_name.' '.$var_name;//строка запуска helmkey /home/bitrix/www/extranet/proj/
-	
+
 	$myhelmout = exec($myprojstring0); //выводим ответ proj
 	$myhelmout = $myhelmout.' '.exec($myprojstring1);//выводим ответ helmkey
-		
+
 	$var = fopen($var_name, 'r');//открываем файл с невязками для чтения
 	$i=0;
 	while (($buffer = fgets($var)) !== false) {//Цикд по записям в файле
@@ -46,23 +46,23 @@ if(isset($_POST["vvbtn"])){
 		$_POST["NXY"][$i] = hypot($vvspl[0],$vvspl[1]);
 		$i++;
 	}
-	 
+
 	unlink($catll_name);//удаляем файлы
 	unlink($cat_name);//удаляем файлы
 	unlink($catloc_name);//удаляем файлы
 	unlink($var_name);//удаляем файлы
-	 
-	
-	vvhtmlhead(count($_POST["name"]), $myhelmout);//печатаем шапку 
+
+
+	vvhtmlhead(count($_POST["name"]), $myhelmout);//печатаем шапку
 	vvhtmltbl(count($_POST["name"]));//печатаем таблицу
 	vvhtmlfoot();//завершаем страницу
 /*Здесь секция расчета заканчивается*/
  }elseif($_POST["vvbtn"] == "+"){
 	vvhtmlhead(count($_POST["name"])+1);
 	vvhtmltbl(count($_POST["name"])+1);
-	vvhtmlfoot(); 
+	vvhtmlfoot();
  }elseif($_POST["vvbtn"] == "-"){
-	
+
 	if (count($_POST["name"])-1 > 0){
 	vvhtmlhead(count($_POST["name"])-1);
 	vvhtmltbl(count($_POST["name"])-1);
@@ -70,7 +70,7 @@ if(isset($_POST["vvbtn"])){
 		vvhtmlhead(count($_POST["name"]));
 		vvhtmltbl(count($_POST["name"]));
 	}
-	vvhtmlfoot(); 
+	vvhtmlfoot();
  }else{
 	unset($_POST);
 	vvhtmlhead(1);
@@ -94,7 +94,7 @@ echo '<tr><td>'.($i+1).'</td>';
 if (isset($_POST["active$i"]) and $_POST["active$i"] == $i){
 echo '<td><input type="checkbox" name="active'.$i.'" value="'.$i.'" checked></td>';
 }else{
-echo '<td><input type="checkbox" name="active'.$i.'" value="'.$i.'"></td>';	
+echo '<td><input type="checkbox" name="active'.$i.'" value="'.$i.'"></td>';
 }
 if(isset($_POST["name"][$i])){
 	echo '<td><input type="text" size="11" name="name['.$i.']" value="'.$_POST["name"][$i].'"></td>';
@@ -202,7 +202,8 @@ myDDDD.value = +myDD.value + (+myMM.value/60) + (+mySS.value/3600);
 }
 ";
  echo '</script></head><body><form method="post">';
- echo '<div class="center">Получилось: '.$vvout.'</div>';
+ echo '<div class="center">Получилось: +proj=omerc +alpha=-0.0001 +lonc='.$_POST["CXDDDD"].' +lat_0='.$_POST["CYDDDD"].' '.$vvout.'+ellps=krass</div>';
+ //образец +proj=omerc +lat_0=59.8338730825 +lonc=33 +alpha=-0.0001 +gamma=-1.771957267229058 +k=0.9996584453038837 +x_0=2365031.423134961 +y_0=426397.2888527482 +ellps=krass
  echo '<table border="0" width="70%" align="left" id="v_table"><thead><tr>';
  echo '<th>XX.XXXXX</th><th>DD</th><th>MM</th><th>SS.SSSS</th><th>Метры</th>';
  echo '<th>YY.YYYYY</th><th>DD</th><th>MM</th><th>SS.SSSS</th><th>Метры</th>';
