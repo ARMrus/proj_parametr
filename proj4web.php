@@ -202,7 +202,7 @@ myDDDD.value = +myDD.value + (+myMM.value/60) + (+mySS.value/3600);
 }
 ";
  echo '</script></head><body><form method="post">';
- echo '<div class="center">Получилось: +proj=omerc +alpha=-0.0001 +lonc='.$_POST["CXDDDD"].' +lat_0='.$_POST["CYDDDD"].' '.$vvout.'+ellps=krass</div>';
+ echo '<div class="center">Получилось: +proj=omerc +alpha=0.0001 +lonc='.$_POST["CXDDDD"].' +lat_0='.$_POST["CYDDDD"].' '.$vvout.' +ellps=krass</div>';
  //образец +proj=omerc +lat_0=59.8338730825 +lonc=33 +alpha=-0.0001 +gamma=-1.771957267229058 +k=0.9996584453038837 +x_0=2365031.423134961 +y_0=426397.2888527482 +ellps=krass
  echo '<table border="0" width="70%" align="left" id="v_table"><thead><tr>';
  echo '<th>XX.XXXXX</th><th>DD</th><th>MM</th><th>SS.SSSS</th><th>Метры</th>';
