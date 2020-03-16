@@ -221,7 +221,7 @@
 			YYD.value = YYD.value.replace(',','.');
 			YYM.value = YYM.value.replace(',','.');
 			YYS.value = YYS.value.replace(',','.');
-			YYY.value = +YYD.value + (+YYM.value/60) + (+YYS.value/3600);	
+			YYY.value = +YYD.value + (+YYM.value/60) + (+YYS.value/3600);
 			if(YYY.value == 0){
 				YYY.value ="";
 			}
@@ -240,7 +240,7 @@
 </head>
 <body onload="mnnrefresh()">
 <form method="post">
-	<table name="TBL" id="TBL0" width="95%" align="center"> 
+	<table name="TBL" id="TBL0" width="95%" align="center">
 		<tbody>
 			<tr align="center">
 				<td colspan="8">Центральная точка</td>
@@ -248,9 +248,9 @@
 				<td colspan="1">Управление</td>
 			</tr>
 			<tr align="center">
-				<td colspan="3">XX.XXXXX</td>
+				<td colspan="3">XX.XXXXX°</td>
 				<td>Метры XX</td>
-				<td colspan="3">YY.YYYYY</td>
+				<td colspan="3">YY.YYYYY°</td>
 				<td>Метры YY</td>
 				<td>Проекция</td>
 				<td colspan="2">
@@ -485,9 +485,9 @@
 				<td rowspan="2">№</td>
 				<td rowspan="2">Акт.</td>
 				<td rowspan="2">Название</td>
-				<td colspan="3">ХХ.ХХХХ</td>
+				<td colspan="3">ХХ.ХХХХ°</td>
 				<td rowspan="2">Метры</td>
-				<td colspan="3">YY.YYYY</td>
+				<td colspan="3">YY.YYYY°</td>
 				<td rowspan="2">Метры</td>
 				<td rowspan="2">Невязка Х</td>
 				<td rowspan="2">Невязка Y</td>
@@ -500,7 +500,7 @@
 				<td>DD</td>
 				<td>MM</td>
 				<td>SS.SSSS</td>
-			</tr>	
+			</tr>
 			<tr align="center" id="th1">
 				<td rowspan="2">1</td>
 				<td rowspan="2"><input type="checkbox" name="active1" id="active1" value="1" onchange="act('1')"></td>
