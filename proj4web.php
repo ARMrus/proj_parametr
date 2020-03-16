@@ -20,7 +20,7 @@ if(isset($_POST["vvbtn"])){
 	 fclose($catll);//Закрываем файлы
 	 fclose($catloc);//Закрываем файлы
 
-	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc='.$_POST["CXDDDD"].' +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass '.$catll_name.' > '.$cat_name;//первая команда вызова proj думаю тут ошибка и кроется
+	$myprojstring0 = 'proj -f "%.16g" +proj=omerc +lat_0='.$_POST["CYDDDD"].' +lonc='.$_POST["CXDDDD"].' +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass '.$catll_name.' > '.$cat_name; //преобразование градусных точек в проекцию
 	/*$_POST["CYDDDD"] - переменная содержащая широту центральной точки*/
 	/*
 	Тут мы должны в команду proj уложить и широту и долготу центральной точки из вебформы, при ее отсутсвии вычислить пока по упрощенной схеме усреднив все введенные точки.
@@ -58,28 +58,28 @@ if(isset($_POST["vvbtn"])){
 	vvhtmlfoot();//завершаем страницу
 /*Здесь секция расчета заканчивается*/
  }elseif($_POST["vvbtn"] == "+"){
-	vvhtmlhead(count($_POST["name"])+1);
-	vvhtmltbl(count($_POST["name"])+1);
+	vvhtmlhead(count($_POST["name"])+1,null);
+	vvhtmltbl(count($_POST["name"])+1,null);
 	vvhtmlfoot();
  }elseif($_POST["vvbtn"] == "-"){
 
 	if (count($_POST["name"])-1 > 0){
-	vvhtmlhead(count($_POST["name"])-1);
+	vvhtmlhead(count($_POST["name"])-1,null);
 	vvhtmltbl(count($_POST["name"])-1);
 	}else{
-		vvhtmlhead(count($_POST["name"]));
+		vvhtmlhead(count($_POST["name"]),null);
 		vvhtmltbl(count($_POST["name"]));
 	}
 	vvhtmlfoot();
  }else{
 	unset($_POST);
-	vvhtmlhead(1);
+	vvhtmlhead(1,null);
 	vvparamclean();
 	vvhtmltbl(1);
 	vvhtmlfoot();
  }
 }else{
-vvhtmlhead(1);
+vvhtmlhead(1,null);
 vvhtmltbl(1);
 vvhtmlfoot();
 }
