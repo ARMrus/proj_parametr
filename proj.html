@@ -238,18 +238,18 @@
 				<td>MM'</td>
 				<td>SS.SSSS''</td>
 				<td>Невязка X m</td>
-				<td colspan="2"><input type="text" size="8" id="MNX" name="MNX" value="" onchange="mnnrefresh()"></td>
+				<td colspan="2"><section id="MNX" name="MNX"></section></td>
 				<td><button type="button" onClick="window.location.reload()">CLEAR</button></td>
 			</tr>
 			<tr align="center">
 				<td><input type="text" size="2" maxlength="2" name="XXD0" id="XXD0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="XXM0" id="XXM0" pattern="(\d[0-6])?(\d)" value="" onchange="s2m('X0')"></td>
+				<td><input type="text" size="2" maxlength="2" name="XXM0" id="XXM0" pattern="\d{0,2}" value="" onchange="s2m('X0')"></td>
 				<td><input type="text" size="8" name="XXS0" id="XXS0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X0')"></td>
 				<td><input type="text" size="2" maxlength="2" name="YYD0" id="YYD0" pattern="\d{0,3}" value="" onchange="s2m('Y0')"></td>
 				<td><input type="text" size="2" maxlength="2" name="YYM0" id="YYM0" pattern="\d{0,2}" value="" onchange="s2m('Y0')"></td>
 				<td><input type="text" size="8" name="YYS0" id="YYS0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y0')"></td>
 				<td>Невязка Y m</td>
-				<td colspan="2"><input type="text" size="8" id="MNY" name="MNY" value="" onchange="mnnrefresh()"></td>
+				<td colspan="2"><section id="MNY" name="MNY"></section></td>
 				<td><button type="submit" name="vvbtn" value="PROJ">PROJ!</button></td>
 			</tr>
 		</tbody>
@@ -285,9 +285,9 @@
 				<td rowspan="2"><input type="text" size="20" name="MXX1" id="MXX1" pattern="\d*((\.|,)\d*)?" value=""></td>
 				<td colspan="3"><input type="text" size="20" name="YYY1" id="YYY1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y1')"></td>
 				<td rowspan="2"><input type="text" size="20" name="MYY1" id="MYY1" pattern="\d*((\.|,)\d*)?" value=""></td>
-				<td rowspan="2"><input type="text" size="14" name="NVX1" id="NVX1" value="" onchange="mnn('1')"></td>
-				<td rowspan="2"><input type="text" size="14" name="NVY1" id="NVY1" value="" onchange="mnn('1')"></td>
-				<td rowspan="2"><input type="text" size="14" name="NXY1" id="NXY1" value="" onchange="mnn('1')"></td>
+				<td rowspan="2"><section name="NVX1" id="NVX1"></section></td>
+				<td rowspan="2"><section name="NVY1" id="NVY1"></section></td>
+				<td rowspan="2"><section name="NXY1" id="NXY1"></section></td>
 			</tr>
 			<tr align="center" id="tl1">
 				<td><input type="text" size="2" maxlength="2" name="XXD1" id="XXD1" pattern="\d{0,3}" value="" onchange="s2m('X1')"></td>

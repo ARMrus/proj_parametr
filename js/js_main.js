@@ -102,13 +102,13 @@ function addrow(){
   newCell.innerHTML = `<input type="text" size="20" name="MYY${rownum}" id="MYY${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(7);
-  newCell.innerHTML = `<input type="text" size="14" name="NVX${rownum}" id="NVX${rownum}" value="" onchange="mnn('${rownum}')">`;
+  newCell.innerHTML = `<section name="NVX${rownum}" id="NVX${rownum}"></section>`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(8);
-  newCell.innerHTML = `<input type="text" size="14" name="NVY${rownum}" id="NVY${rownum}" value="" onchange="mnn('${rownum}')">`;
+  newCell.innerHTML = `<section name="NVY${rownum}" id="NVY${rownum}"></section>`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(9);
-  newCell.innerHTML = `<input type="text" size="14" name="NXY${rownum}" id="NXY${rownum}" value="" onchange="mnn('${rownum}')">`;
+  newCell.innerHTML = `<section name="NXY${rownum}" id="NXY${rownum}"></section>`;
   newCell.rowSpan = 2;
   newRow = tbl.insertRow(lastrow() * 2 + 3);
   newRow.align ="center";
