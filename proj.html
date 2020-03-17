@@ -176,10 +176,10 @@
 				<td><button type="button" onclick="addrow()">+</button></td>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><input type="text" size="24" name="XXX0" id="XXX0" value="" onchange="m2s('X0')"></td>
-				<td rowspan="3"><input type="text" size="24" name="MXX0" id="MXX0" value=""></td>
-				<td colspan="3"><input type="text" size="24" name="YYY0" id="YYY0" value="" onchange="m2s('Y0')"></td>
-				<td rowspan="3"><input type="text" size="24" name="MYY0" id="MYY0" value=""></td>
+				<td colspan="3"><input type="text" size="24" name="XXX0" id="XXX0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X0')"></td>
+				<td rowspan="3"><input type="text" size="24" name="MXX0" id="MXX0" pattern="\d*((\.|,)\d*)?" value=""></td>
+				<td colspan="3"><input type="text" size="24" name="YYY0" id="YYY0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y0')"></td>
+				<td rowspan="3"><input type="text" size="24" name="MYY0" id="MYY0" pattern="\d*((\.|,)\d*)?" value=""></td>
 				<td>Эллипсоид</td>
 				<td colspan="2">
 					<select size="1" name="ellps">
@@ -242,12 +242,12 @@
 				<td><button type="button" onClick="window.location.reload()">CLEAR</button></td>
 			</tr>
 			<tr align="center">
-				<td><input type="text" size="2" maxlength="2" name="XXD0" id="XXD0" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="XXM0" id="XXM0" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="8" name="XXS0" id="XXS0" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYD0" id="YYD0" value="" onchange="s2m('Y0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYM0" id="YYM0" value="" onchange="s2m('Y0')"></td>
-				<td><input type="text" size="8" name="YYS0" id="YYS0" value="" onchange="s2m('Y0')"></td>
+				<td><input type="text" size="2" maxlength="2" name="XXD0" id="XXD0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>
+				<td><input type="text" size="2" maxlength="2" name="XXM0" id="XXM0" pattern="(\d[0-6])?(\d)" value="" onchange="s2m('X0')"></td>
+				<td><input type="text" size="8" name="XXS0" id="XXS0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X0')"></td>
+				<td><input type="text" size="2" maxlength="2" name="YYD0" id="YYD0" pattern="\d{0,3}" value="" onchange="s2m('Y0')"></td>
+				<td><input type="text" size="2" maxlength="2" name="YYM0" id="YYM0" pattern="\d{0,2}" value="" onchange="s2m('Y0')"></td>
+				<td><input type="text" size="8" name="YYS0" id="YYS0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y0')"></td>
 				<td>Невязка Y m</td>
 				<td colspan="2"><input type="text" size="8" id="MNY" name="MNY" value="" onchange="mnnrefresh()"></td>
 				<td><button type="submit" name="vvbtn" value="PROJ">PROJ!</button></td>
@@ -281,21 +281,21 @@
 				<td rowspan="2">1</td>
 				<td rowspan="2"><input type="checkbox" name="active1" id="active1" value="1" onchange="act('1')"><button type="button" onclick="delrow('1')">-</button></td>
 				<td rowspan="2"><input type="text" size="8" name="NickName" value=""></td>
-				<td colspan="3"><input type="text" size="20" name="XXX1" id="XXX1" value="" onchange="m2s('X1')"></td>
-				<td rowspan="2"><input type="text" size="20" name="MXX1" id="MXX1" value=""></td>
-				<td colspan="3"><input type="text" size="20" name="YYY1" id="YYY1" value="" onchange="m2s('Y1')"></td>
-				<td rowspan="2"><input type="text" size="20" name="MYY1" id="MYY1" value=""></td>
+				<td colspan="3"><input type="text" size="20" name="XXX1" id="XXX1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X1')"></td>
+				<td rowspan="2"><input type="text" size="20" name="MXX1" id="MXX1" pattern="\d*((\.|,)\d*)?" value=""></td>
+				<td colspan="3"><input type="text" size="20" name="YYY1" id="YYY1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y1')"></td>
+				<td rowspan="2"><input type="text" size="20" name="MYY1" id="MYY1" pattern="\d*((\.|,)\d*)?" value=""></td>
 				<td rowspan="2"><input type="text" size="14" name="NVX1" id="NVX1" value="" onchange="mnn('1')"></td>
 				<td rowspan="2"><input type="text" size="14" name="NVY1" id="NVY1" value="" onchange="mnn('1')"></td>
 				<td rowspan="2"><input type="text" size="14" name="NXY1" id="NXY1" value="" onchange="mnn('1')"></td>
 			</tr>
 			<tr align="center" id="tl1">
-				<td><input type="text" size="2" maxlength="2" name="XXD1" id="XXD1" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="XXM1" id="XXM1" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="8" name="XXS1" id="XXS1" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYD1" id="YYD1" value="" onchange="s2m('Y1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYM1" id="YYM1" value="" onchange="s2m('Y1')"></td>
-				<td><input type="text" size="8" name="YYS1" id="YYS1" value="" onchange="s2m('Y1')"></td>
+				<td><input type="text" size="2" maxlength="2" name="XXD1" id="XXD1" pattern="\d{0,3}" value="" onchange="s2m('X1')"></td>
+				<td><input type="text" size="2" maxlength="2" name="XXM1" id="XXM1" pattern="\d{0,2}" value="" onchange="s2m('X1')"></td>
+				<td><input type="text" size="8" name="XXS1" id="XXS1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X1')"></td>
+				<td><input type="text" size="2" maxlength="2" name="YYD1" id="YYD1" pattern="\d{0,3}" value="" onchange="s2m('Y1')"></td>
+				<td><input type="text" size="2" maxlength="2" name="YYM1" id="YYM1" pattern="\d{0,2}" value="" onchange="s2m('Y1')"></td>
+				<td><input type="text" size="8" name="YYS1" id="YYS1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y1')"></td>
 			</tr>
 		</tbody>
 	</table>

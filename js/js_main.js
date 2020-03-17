@@ -90,16 +90,16 @@ function addrow(){
   newCell.innerHTML = `<input type="text" size="8" name="NickName${rownum}" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(3);
-  newCell.innerHTML = `<input type="text" size="20" name="XXX${rownum}" id="XXX${rownum}" value="" onchange="m2s('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="20" name="XXX${rownum}" id="XXX${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('X${rownum}')">`;
   newCell.colSpan = 3;
   newCell = newRow.insertCell(4);
-  newCell.innerHTML = `<input type="text" size="20" name="MXX${rownum}" id="MXX${rownum}" value="">`;
+  newCell.innerHTML = `<input type="text" size="20" name="MXX${rownum}" id="MXX${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(5);
-  newCell.innerHTML = `<input type="text" size="20" name="YYY${rownum}" id="YYY${rownum}" value="" onchange="m2s('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="20" name="YYY${rownum}" id="YYY${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('Y${rownum}')">`;
   newCell.colSpan = 3;
   newCell = newRow.insertCell(6);
-  newCell.innerHTML = `<input type="text" size="20" name="MYY${rownum}" id="MYY${rownum}" value="">`;
+  newCell.innerHTML = `<input type="text" size="20" name="MYY${rownum}" id="MYY${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(7);
   newCell.innerHTML = `<input type="text" size="14" name="NVX${rownum}" id="NVX${rownum}" value="" onchange="mnn('${rownum}')">`;
@@ -119,17 +119,17 @@ function addrow(){
     newRow.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
   }
   newCell = newRow.insertCell(0);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXD${rownum}" id="XXD${rownum}" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXD${rownum}" id="XXD${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(1);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXM${rownum}" id="XXM${rownum}" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXM${rownum}" id="XXM${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(2);
-  newCell.innerHTML = `<input type="text" size="8" name="XXS${rownum}" id="XXS${rownum}" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="8" name="XXS${rownum}" id="XXS${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(3);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYD${rownum}" id="YYD${rownum}" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYD${rownum}" id="YYD${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('Y${rownum}')">`;
   newCell = newRow.insertCell(4);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYM${rownum}" id="YYM${rownum}" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYM${rownum}" id="YYM${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('Y${rownum}')">`;
   newCell = newRow.insertCell(5);
-  newCell.innerHTML = `<input type="text" size="8" name="YYS${rownum}" id="YYS${rownum}" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="8" name="YYS${rownum}" id="YYS${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('Y${rownum}')">`;
 }
 function m2s(my_id){
   if(my_id.substring(0,1) == 'X'){
