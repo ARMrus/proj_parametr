@@ -1,3 +1,6 @@
+function poj_parametr() {
+
+}
 function delrow(rows_del_id){
     var row_table_th = document.getElementById('th'+rows_del_id);
     var row_table_tl = document.getElementById('tl'+rows_del_id);
