@@ -1,4 +1,27 @@
 function poj_parametr() {
+  //epsg 4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
+  //+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass
+
+  //var firstProjection = 'PROJCS["NAD83 / Massachusetts Mainland",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],UNIT["metre",1,AUTHORITY["EPSG","9001"]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["standard_parallel_1",42.68333333333333],PARAMETER["standard_parallel_2",41.71666666666667],PARAMETER["latitude_of_origin",41],PARAMETER["central_meridian",-71.5],PARAMETER["false_easting",200000],PARAMETER["false_northing",750000],AUTHORITY["EPSG","26986"],AXIS["X",EAST],AXIS["Y",NORTH]]';
+  //var secondProjection = "+proj=gnom +lat_0=90 +lon_0=0 +x_0=6300000 +y_0=6300000 +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+  //I'm not going to redefine those two in latter examples.
+
+  var firstProjection ='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+  var secondProjection = "+proj=" + document.getElementById('projselect').value;
+  secondProjection = secondProjection + " +lat_0=" + document.getElementById('YYY0').value;
+  secondProjection = secondProjection + " +lonc=" + document.getElementById('XXX0').value;
+  secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
+  console.log(secondProjection);
+  secondProjection = "+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass";
+  console.log(proj4(firstProjection,secondProjection,[23.12716113273887,52.02642240080064]));
+  // [-2690666.2977344505, 3662659.885459918
+
+
+  var table_geopoint = document.getElementById('TBL1');
+  var row_geopoint = table_geopoint.getElementsByTagName('tr');
+  row_geopoint.filter(function(point) {
+  return point > 0;
+  });
 
 }
 function delrow(rows_del_id){

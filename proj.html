@@ -13,6 +13,7 @@
 	button {background-color: #eeeeee; border: none; padding: 3px 3px; text-align: center; font-size: 10px; text-decoration: none; width: 100%;}
 </style>
 <script src="js/js_main.js"></script>
+<script src="js/proj4.js"></script>
 </head>
 <body onload="mnnrefresh()">
 <form method="post">
@@ -30,7 +31,7 @@
 				<td>Метры Y</td>
 				<td>Проекция</td>
 				<td colspan="2">
-					<select size="1" name="proj">
+					<select size="1" name="proj" id="projselect">
 						<option value="aea">Albers Equal Area</option>
 						<option value="aeqd">Azimuthal Equidistant</option>
 						<option value="airy">Airy</option>
@@ -182,7 +183,7 @@
 				<td rowspan="3"><input type="text" size="24" name="MYY0" id="MYY0" pattern="\d*((\.|,)\d*)?" value=""></td>
 				<td>Эллипсоид</td>
 				<td colspan="2">
-					<select size="1" name="ellps">
+					<select size="1" name="ellps" id="ellps">
 					<option value="MERIT">MERIT 1983</option>
 					<option value="SGS85">Soviet Geodetic System 85</option>
 					<option value="GRS80">GRS 1980(IUGG, 1980)</option>
@@ -251,6 +252,9 @@
 				<td>Невязка Y m</td>
 				<td colspan="2"><section id="MNY" name="MNY"></section></td>
 				<td><button type="button" onClick="poj_parametr()">PROJ!</button></td>
+			</tr>
+			<tr align="center">
+				<td>Смещение</td>
 			</tr>
 		</tbody>
 	</table>
