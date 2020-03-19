@@ -7,9 +7,9 @@ function poj_parametr() {
   //I'm not going to redefine those two in latter examples.
 
   var firstProjection ='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
-  var secondProjection = "+proj=" + document.getElementById('projselect').value;
-  secondProjection = secondProjection + " +lat_0=" + document.getElementById('YYY0').value;
-  secondProjection = secondProjection + " +lonc=" + document.getElementById('XXX0').value;
+  var secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
+  secondProjection = secondProjection + " +lat_0=" + document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value;
+  secondProjection = secondProjection + " +lonc=" + document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value;
   secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
   console.log(secondProjection);
   secondProjection = "+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass";
@@ -17,18 +17,21 @@ function poj_parametr() {
   // [-2690666.2977344505, 3662659.885459918
 
 
-  var table_geopoint = document.getElementById('TBL1');
-  var row_geopoint = table_geopoint.getElementsByTagName('tr');
+  // var table_geopoint = document.getElementById('TBL1');
+  // var row_geopoint = table_geopoint.getElementsByTagName('tr');
+  var row_geopoint = document.querySelectorAll(`[name="th"]`);
+  console.log(row_geopoint);
   row_geopoint.filter(function(point) {
   return point > 0;
   });
 
 }
 function delrow(rows_del_id){
-    var row_table_th = document.getElementById('th'+rows_del_id);
-    var row_table_tl = document.getElementById('tl'+rows_del_id);
-    row_table_th.parentNode.removeChild(row_table_th);
-    row_table_tl.parentNode.removeChild(row_table_tl);
+    // console.log(tbl);
+    var th = document.querySelectorAll(`[name="th"][id="${rows_del_id}"]`);
+    var tl = document.querySelectorAll(`[name="tl"][id="${rows_del_id}"]`);
+    th[0].parentNode.removeChild(th[0]);
+    tl[0].parentNode.removeChild(tl[0]);
 }
 function lastrow(){
   var table = document.getElementById('TBL1');
@@ -36,29 +39,36 @@ function lastrow(){
   return Math.trunc(rowCount / 2 -1);
 }
 function mnnrefresh(){
-  var cnt;
-  for(cnt = 1;cnt <= lastrow();cnt++){
-    mnn(cnt);
-  }
+  // var cnt;
+  // for(cnt = 1;cnt <= lastrow();cnt++){
+  //   mnn(cnt);
+  // }
 }
 function mnn(myrow){
-  var mytrh = document.getElementById(`th${myrow}`);
-  var mytrl = document.getElementById(`tl${myrow}`);
-  var maxx = document.getElementById('MNX');
-  var maxy = document.getElementById('MNY');
-  var nvx = document.getElementById(`NVX${myrow}`);
-  var nvy = document.getElementById(`NVY${myrow}`);
-  var nxy = document.getElementById(`NXY${myrow}`);
-  if(+nxy.value > Math.hypot(+maxx.value,+maxy.value)){
-    mytrh.setAttribute( 'style', 'background-color: #ff9999 !important; color: #4a4a4a !important');
-    mytrl.setAttribute( 'style', 'background-color: #ff9999 !important; color: #4a4a4a !important');
-  }else if(+nvx.value > +maxx.value){
-    mytrh.setAttribute( 'style', 'background-color: #ffff99 !important; color: #4a4a4a !important');
-    mytrl.setAttribute( 'style', 'background-color: #ffff99 !important; color: #4a4a4a !important');
-  }else if(+nvy.value > +maxy.value){
-    mytrh.setAttribute( 'style', 'background-color: #ff99ff !important; color: #4a4a4a !important');
-    mytrl.setAttribute( 'style', 'background-color: #ff99ff !important; color: #4a4a4a !important');
-  }else{
+  // var th = document.getElementsByName('th');
+  // var tl = document.getElementsByName('tl');
+  console.log("раскраска");
+  // var mytrh = th.getElementById(myrow);
+  // var mytrl = tl.getElementById(myrow);
+
+  var mytrh = document.querySelectorAll(`[name="th"][id="${myrow}"]`)[0];
+  var mytrl = document.querySelectorAll(`[name="tl"][id="${myrow}"]`)[0];
+
+  // var maxx = document.getElementById('MNX');
+  // var maxy = document.getElementById('MNY');
+  // var nvx = document.getElementById(`NVX${myrow}`);
+  // var nvy = document.getElementById(`NVY${myrow}`);
+  // var nxy = document.getElementById(`NXY${myrow}`);
+  // if(+nxy.value > Math.hypot(+maxx.value,+maxy.value)){
+  //   mytrh.setAttribute( 'style', 'background-color: #ff9999 !important; color: #4a4a4a !important');
+  //   mytrl.setAttribute( 'style', 'background-color: #ff9999 !important; color: #4a4a4a !important');
+  // }else if(+nvx.value > +maxx.value){
+  //   mytrh.setAttribute( 'style', 'background-color: #ffff99 !important; color: #4a4a4a !important');
+  //   mytrl.setAttribute( 'style', 'background-color: #ffff99 !important; color: #4a4a4a !important');
+  // }else if(+nvy.value > +maxy.value){
+  //   mytrh.setAttribute( 'style', 'background-color: #ff99ff !important; color: #4a4a4a !important');
+  //   mytrl.setAttribute( 'style', 'background-color: #ff99ff !important; color: #4a4a4a !important');
+  // }else{
     if(myrow % 2){
       mytrh.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
       mytrl.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
@@ -66,29 +76,29 @@ function mnn(myrow){
       mytrh.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
       mytrl.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
     }
-  }
+  // }
 }
 function act(myrow){
-  var active = document.getElementById(`active${myrow}`);
-  var mytrh = document.getElementById(`th${myrow}`);
-  var mytrl = document.getElementById(`tl${myrow}`);
+  var mytrh = document.querySelectorAll(`[name="th"][id="${myrow}"]`)[0];
+  var mytrl = document.querySelectorAll(`[name="tl"][id="${myrow}"]`)[0];
+  var active = mytrh.querySelectorAll(`[name="active"][id="${myrow}"]`)[0];
   if(active.checked == true){
     if(myrow % 2){
-      mytrh.setAttribute( 'style', 'background-color: #ffffff !important; color: #eeffff !important');
-      mytrl.setAttribute( 'style', 'background-color: #ffffff !important; color: #eeffff !important');
+      mytrh.setAttribute( 'style', 'background-color: #ffffff !important; color: inherit !important');
+      mytrl.setAttribute( 'style', 'background-color: #ffffff !important; color: inherit !important');
     }else{
-      mytrh.setAttribute( 'style', 'background-color: #eeffff !important; color: #ffffff !important');
-      mytrl.setAttribute( 'style', 'background-color: #eeffff !important; color: #ffffff !important');
+      mytrh.setAttribute( 'style', 'background-color: #eeffff !important; color: inherit !important');
+      mytrl.setAttribute( 'style', 'background-color: #eeffff !important; color: inherit !important');
     }
   }else{
     if(myrow % 2){
-      mytrh.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
-      mytrl.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
+      mytrh.setAttribute( 'style', 'background-color: #ffffff !important; color: #cccccc !important');
+      mytrl.setAttribute( 'style', 'background-color: #ffffff !important; color: #cccccc !important');
     }else{
-      mytrh.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
-      mytrl.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
+      mytrh.setAttribute( 'style', 'background-color: #eeffff !important; color: #cccccc !important');
+      mytrl.setAttribute( 'style', 'background-color: #eeffff !important; color: #cccccc !important');
     }
-    mnn(myrow);
+    //mnn(myrow);
   }
 }
 function addrow(){
@@ -98,11 +108,13 @@ function addrow(){
   var rownum = parseInt(id_end_rows.replace(/\D+/g,""))+1;
   var newRow = tbl.insertRow(lastrow() * 2 + 2);
   newRow.align = "center";
-  newRow.id = `th${rownum}`;
+  newRow.id = rownum;
+  newRow.setAttribute("name", "th");
+  //console.log(newRow.name);
   if(rownum % 2){
-    newRow.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
+    newRow.setAttribute( 'style', 'background-color: #ffffff !important; color: inherit !important');
   }else{
-    newRow.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
+    newRow.setAttribute( 'style', 'background-color: #eeffff !important; color: inherit !important');
   }
   var cnt;
   var newCell;
@@ -110,59 +122,65 @@ function addrow(){
   newCell.innerHTML = rownum;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(1);
-  newCell.innerHTML = `<input type="checkbox" name="active${rownum}" id="active${rownum}" value="${rownum}" onchange="act('${rownum}')"><button type="button" onclick="delrow('${rownum}')">-</button>`;
+  newCell.innerHTML = `<input type="checkbox" name="active" id="${rownum}" value="${rownum}" onchange="act('${rownum}')" checked><button type="button" onclick="delrow('${rownum}')">-</button>`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(2);
-  newCell.innerHTML = `<input type="text" size="8" name="NickName${rownum}" value="">`;
+  newCell.innerHTML = `<input type="text" size="8" name="NickName" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(3);
-  newCell.innerHTML = `<input type="text" size="20" name="XXX${rownum}" id="XXX${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="20" name="XXX" id="${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('X${rownum}')">`;
   newCell.colSpan = 3;
   newCell = newRow.insertCell(4);
-  newCell.innerHTML = `<input type="text" size="20" name="MXX${rownum}" id="MXX${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
+  newCell.innerHTML = `<input type="text" size="20" name="MXX" id="${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(5);
-  newCell.innerHTML = `<input type="text" size="20" name="YYY${rownum}" id="YYY${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="20" name="YYY" id="${rownum}" pattern="\\d{1,3}((\\.|,)\\d*)?" value="" onchange="m2s('Y${rownum}')">`;
   newCell.colSpan = 3;
   newCell = newRow.insertCell(6);
-  newCell.innerHTML = `<input type="text" size="20" name="MYY${rownum}" id="MYY${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
+  newCell.innerHTML = `<input type="text" size="20" name="MYY" id="${rownum}" pattern="\\d*((\\.|,)\\d*)?" value="">`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(7);
-  newCell.innerHTML = `<section name="NVX${rownum}" id="NVX${rownum}"></section>`;
+  newCell.innerHTML = `<section name="NVX" id="${rownum}"></section>`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(8);
-  newCell.innerHTML = `<section name="NVY${rownum}" id="NVY${rownum}"></section>`;
+  newCell.innerHTML = `<section name="NVY" id="${rownum}"></section>`;
   newCell.rowSpan = 2;
   newCell = newRow.insertCell(9);
-  newCell.innerHTML = `<section name="NXY${rownum}" id="NXY${rownum}"></section>`;
+  newCell.innerHTML = `<section name="NXY" id="${rownum}"></section>`;
   newCell.rowSpan = 2;
   newRow = tbl.insertRow(lastrow() * 2 + 3);
   newRow.align ="center";
-  newRow.id = `tl${rownum}`;
+  newRow.id = rownum;
+  newRow.setAttribute("name", "tl");
   if((lastrow()) % 2){
-    newRow.setAttribute( 'style', 'background-color: #ffffff !important; color: #4a4a4a !important');
+    newRow.setAttribute( 'style', 'background-color: #ffffff !important; color: inherit !important');
   }else{
-    newRow.setAttribute( 'style', 'background-color: #eeffff !important; color: #4a4a4a !important');
+    newRow.setAttribute( 'style', 'background-color: #eeffff !important; color: inherit !important');
   }
   newCell = newRow.insertCell(0);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXD${rownum}" id="XXD${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXD" id="${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(1);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXM${rownum}" id="XXM${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="XXM" id="${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(2);
-  newCell.innerHTML = `<input type="text" size="8" name="XXS${rownum}" id="XXS${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('X${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="8" name="XXS" id="${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('X${rownum}')">`;
   newCell = newRow.insertCell(3);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYD${rownum}" id="YYD${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYD" id="${rownum}" pattern="\\d{0,3}" value="" onchange="s2m('Y${rownum}')">`;
   newCell = newRow.insertCell(4);
-  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYM${rownum}" id="YYM${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="2" maxlength="2" name="YYM" id="${rownum}" pattern="\\d{0,2}" value="" onchange="s2m('Y${rownum}')">`;
   newCell = newRow.insertCell(5);
-  newCell.innerHTML = `<input type="text" size="8" name="YYS${rownum}" id="YYS${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('Y${rownum}')">`;
+  newCell.innerHTML = `<input type="text" size="8" name="YYS" id="${rownum}" pattern="\\d{0,2}((\\.|,)\\d*)?" value="" onchange="s2m('Y${rownum}')">`;
 }
 function m2s(my_id){
   if(my_id.substring(0,1) == 'X'){
-    var XXX = document.getElementById('XXX' + my_id.substring(1));
-    var XXD = document.getElementById('XXD' + my_id.substring(1));
-    var XXM = document.getElementById('XXM' + my_id.substring(1));
-    var XXS = document.getElementById('XXS' + my_id.substring(1));
+    // var XXX = document.getElementById('XXX' + my_id.substring(1));
+    // var XXD = document.getElementById('XXD' + my_id.substring(1));
+    // var XXM = document.getElementById('XXM' + my_id.substring(1));
+    // var XXS = document.getElementById('XXS' + my_id.substring(1));
+
+    var XXX = document.querySelectorAll(`[name="XXX"][id="${my_id.substring(1)}"]`)[0];
+    var XXD = document.querySelectorAll(`[name="XXD"][id="${my_id.substring(1)}"]`)[0];
+    var XXM = document.querySelectorAll(`[name="XXM"][id="${my_id.substring(1)}"]`)[0];
+    var XXS = document.querySelectorAll(`[name="XXS"][id="${my_id.substring(1)}"]`)[0];
     XXX.value = XXX.value.replace(',','.');
     XXD.value = Math.trunc(XXX.value);
     XXM.value = Math.trunc((XXX.value - XXD.value) * 60);
@@ -180,10 +198,10 @@ function m2s(my_id){
       XXS.value ="";
     }
   }else if(my_id.substring(0,1) == 'Y'){
-    var YYY = document.getElementById('YYY' + my_id.substring(1));
-    var YYD = document.getElementById('YYD' + my_id.substring(1));
-    var YYM = document.getElementById('YYM' + my_id.substring(1));
-    var YYS = document.getElementById('YYS' + my_id.substring(1));
+    var YYY = document.querySelectorAll(`[name="YYY"][id="${my_id.substring(1)}"]`)[0];
+    var YYD = document.querySelectorAll(`[name="YYD"][id="${my_id.substring(1)}"]`)[0];
+    var YYM = document.querySelectorAll(`[name="YYM"][id="${my_id.substring(1)}"]`)[0];
+    var YYS = document.querySelectorAll(`[name="YYS"][id="${my_id.substring(1)}"]`)[0];
     YYY.value = YYY.value.replace(',','.');
     YYD.value = Math.trunc(YYY.value);
     YYM.value = Math.trunc((YYY.value - YYD.value) * 60);
@@ -204,10 +222,10 @@ function m2s(my_id){
 }
 function s2m(my_id){
   if(my_id.substring(0,1) == "X"){
-    var XXX = document.getElementById('XXX' + my_id.substring(1));
-    var XXD = document.getElementById('XXD' + my_id.substring(1));
-    var XXM = document.getElementById('XXM' + my_id.substring(1));
-    var XXS = document.getElementById('XXS' + my_id.substring(1));
+    var XXX = document.querySelectorAll(`[name="XXX"][id="${my_id.substring(1)}"]`)[0];
+    var XXD = document.querySelectorAll(`[name="XXD"][id="${my_id.substring(1)}"]`)[0];
+    var XXM = document.querySelectorAll(`[name="XXM"][id="${my_id.substring(1)}"]`)[0];
+    var XXS = document.querySelectorAll(`[name="XXS"][id="${my_id.substring(1)}"]`)[0];
     XXD.value = XXD.value.replace(',','.');
     XXM.value = XXM.value.replace(',','.');
     XXS.value = XXS.value.replace(',','.');
@@ -225,10 +243,10 @@ function s2m(my_id){
       XXS.value ="";
     }
   }else if(my_id.substring(0,1) == "Y"){
-    var YYY = document.getElementById('YYY' + my_id.substring(1));
-    var YYD = document.getElementById('YYD' + my_id.substring(1));
-    var YYM = document.getElementById('YYM' + my_id.substring(1));
-    var YYS = document.getElementById('YYS' + my_id.substring(1));
+    var YYY = document.querySelectorAll(`[name="YYY"][id="${my_id.substring(1)}"]`)[0];
+    var YYD = document.querySelectorAll(`[name="YYD"][id="${my_id.substring(1)}"]`)[0];
+    var YYM = document.querySelectorAll(`[name="YYM"][id="${my_id.substring(1)}"]`)[0];
+    var YYS = document.querySelectorAll(`[name="YYS"][id="${my_id.substring(1)}"]`)[0];
     YYD.value = YYD.value.replace(',','.');
     YYM.value = YYM.value.replace(',','.');
     YYS.value = YYS.value.replace(',','.');
