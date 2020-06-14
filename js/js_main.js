@@ -6,19 +6,27 @@ var conform = {"summ_intermediary_x":0,
   "summ_msk_x":0,
   "summ_msk_y":0,
   "sdxy_0":0,
-  "sdxy_1":0,
   "sdxy_2":0,
   "sdxy_3":0,
   "sdxy_4":0,
+  "sdxy_5":0,
+  "sdxy_6":0,
   "intermediary_x_centr":0,
   "msk_x_centr":0,
   "intermediary_y_centr":0,
   "msk_y_centr":0,
-  "a_1_0":0,
-  "a_1_1":0,
-  "a_0_0":0,
-  "a_0_1":0,
+  "h_0":0,
+  "h_1":0,
+  // "a_1":0,
+  // "b_1":0,
+  // "a_0":0,
+  // "b_0":0,
+  "proj_x":0,
+  "proj_y":0,
   "scale":0,
+  // "sdxy_x1":0,
+  // "sdxy_x2":0,
+  "det":0,
   "rotation":0};
 
 function str_tab(element, index, array) {
@@ -55,16 +63,39 @@ function summCord(element, index, array) {
 
 function additionCord(element, index, array) {
   /* вычислить разности */
-  let dx_intermediary = element.intermediary_x - conform.intermediary_x_centr;
-  let dx_msk = element.msk_x - conform.msk_x_centr;
-  let dy_intermediary = element.intermediary_y - conform.intermediary_y_centr;
-  let dy_msk = element.msk_y - conform.msk_y_centr;
+  point_arr[index].dx_intermediary = element.intermediary_x - conform.intermediary_x_centr;
+  point_arr[index].dx_msk = element.msk_x - conform.msk_x_centr;
+  point_arr[index].dy_intermediary = element.intermediary_y - conform.intermediary_y_centr;
+  point_arr[index].dy_msk = element.msk_y - conform.msk_y_centr;
   /* суммировать */
-  conform.sdxy_0 += dx_intermediary * dy_intermediary;
-  conform.sdxy_1 += dx_msk * dy_msk;
-  conform.sdxy_2 += dx_intermediary * dy_msk;
-  conform.sdxy_3 += dx_msk * dy_intermediary;
-  conform.sdxy_4 += (dx_intermediary * dx_intermediary) + (dx_msk * dx_msk);
+  // conform.sdxy_1 += point_arr[index].dx_intermediary * point_arr[index].dx_msk;
+  // conform.sdxy_2 += point_arr[index].dy_intermediary * point_arr[index].dy_msk;
+  // conform.sdxy_3 += point_arr[index].dx_intermediary * point_arr[index].dy_msk;
+  // conform.sdxy_4 += point_arr[index].dy_intermediary * point_arr[index].dx_msk;
+  // conform.sdxy_5 += (point_arr[index].dx_intermediary * point_arr[index].dx_intermediary) + (point_arr[index].dy_intermediary * point_arr[index].dy_intermediary);
+  //
+  // conform.sdxy_x1 += point_arr[index].dy_intermediary * point_arr[index].dx_intermediary;
+  // conform.sdxy_x2 += point_arr[index].dx_msk * point_arr[index].dy_msk;
+  // conform.det += point_arr[index].dx_intermediary * point_arr[index].dx_intermediary + point_arr[index].dx_msk * point_arr[index].dx_msk;
+
+  conform.sdxy_0 += point_arr[index].dx_intermediary * point_arr[index].dx_intermediary;
+  conform.sdxy_2 += point_arr[index].dy_intermediary * point_arr[index].dy_intermediary;
+  conform.sdxy_3 += point_arr[index].dx_intermediary * point_arr[index].dx_msk;
+  conform.sdxy_4 += point_arr[index].dy_intermediary * point_arr[index].dx_msk;
+  conform.sdxy_5 += point_arr[index].dx_intermediary * point_arr[index].dy_msk;
+  conform.sdxy_6 += point_arr[index].dy_intermediary * point_arr[index].dy_msk;
+}
+
+function newSkPoint(element, index, array) {
+  point_arr[index].xv = conform.a_0 + (conform.a_1 * element.intermediary_x) - (conform.b_1 * element.intermediary_y);
+  point_arr[index].yv = conform.b_0 + (conform.b_1 * element.intermediary_x) + (conform.a_1 * element.intermediary_y);
+  point_arr[index].vx = element.msk_x - point_arr[index].xv;
+  point_arr[index].vy = element.msk_y - point_arr[index].yv;
+  point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);
+
+  let tpsnform_msk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);
+  point_arr[index].transform_x = tpsnform_msk[0];
+  point_arr[index].transform_y = tpsnform_msk[1];
 }
 
 function poj_parametr() {
@@ -79,19 +110,27 @@ function poj_parametr() {
     "summ_msk_x":0,
     "summ_msk_y":0,
     "sdxy_0":0,
-    "sdxy_1":0,
     "sdxy_2":0,
     "sdxy_3":0,
     "sdxy_4":0,
+    "sdxy_5":0,
+    "sdxy_6":0,
     "intermediary_x_centr":0,
     "msk_x_centr":0,
     "intermediary_y_centr":0,
     "msk_y_centr":0,
-    "a_1_0":0,
-    "a_1_1":0,
-    "a_0_0":0,
-    "a_0_1":0,
+    "h_0":0,
+    "h_1":0,
+    // "a_1":0,
+    // "b_1":0,
+    // "a_0":0,
+    // "b_0":0,
     "scale":0,
+    "proj_x":0,
+    "proj_y":0,
+    // "sdxy_x1":0,
+    // "sdxy_x2":0,
+    "det":0,
     "rotation":0};
 
   arrp.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
@@ -104,6 +143,7 @@ function poj_parametr() {
     secondProjection = secondProjection + " +lat_0=" + arrp.wgs_y;
     secondProjection = secondProjection + " +lonc=" + arrp.wgs_x;
     secondProjection = secondProjection + " +alpha=-0.000000001 +k=1 +x_0=0 +y_0=0 +gamma=0";
+    //secondProjection = secondProjection + " +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0";
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
     //console.log(secondProjection);
     //secondProjection = "+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass";
@@ -127,13 +167,37 @@ function poj_parametr() {
     /* подсчитать сумму произведений */
     point_arr.forEach(additionCord);
     /* найти первичные параметры */
-    conform.a_1_0 = (conform.sdxy_0 + conform.sdxy_1) / conform.sdxy_4; //(s[0] + s[1]) / s[4];
-    conform.a_1_1 = (conform.sdxy_2 - conform.sdxy_3) / conform.sdxy_4; //(s[2] - s[3]) / s[4];
-    conform.a_0_0 = conform.intermediary_y_centr - (conform.a_1_0 * conform.intermediary_x_centr) + (conform.a_1_1 * conform.msk_x_centr); //yc[0] - a[1][0] * xc[0] + a[1][1] * xc[1];
-    conform.a_0_1 = conform.msk_y_centr - (conform.a_1_1 * conform.intermediary_x_centr) + (conform.a_1_0 * conform.msk_x_centr); //yc[1] - a[1][1] * xc[0] - a[1][0] * xc[1];
+    conform.det = conform.sdxy_0 + conform.sdxy_2;
+    conform.h_0 = (conform.sdxy_3 + conform.sdxy_6) / conform.det;
+    conform.h_1 = (conform.sdxy_4 - conform.sdxy_5) / conform.det;
+    // conform.a_1 = (conform.sdxy_1 + conform.sdxy_2) / conform.sdxy_5;
+    // conform.b_1 = (conform.sdxy_3 - conform.sdxy_4) / conform.sdxy_5;
+    // conform.a_0 = conform.msk_x_centr - (conform.a_1 * conform.intermediary_x_centr) + (conform.b_1 * conform.intermediary_y_centr);
+    // conform.b_0 = conform.msk_y_centr - (conform.b_1 * conform.intermediary_x_centr) - (conform.a_1 * conform.intermediary_y_centr);
+
+    //conform.proj_x = conform.intermediary_y_centr - (conform.a_1 * conform.intermediary_x_centr) - (conform.b_1 * conform.msk_x_centr);// h[2] = yc[0] - h[0] * xc[0] - h[1] * xc[1];
+    // conform.proj_x = conform.intermediary_y_centr - ((/*h[0]*/(conform.sdxy_x1 + conform.sdxy_x2) / conform.det) * conform.intermediary_x_centr) - ((/*h[1]*/(conform.sdxy_4 - conform.sdxy_3) / conform.det) * conform.msk_x_centr);// h[2] = yc[0] - h[0] * xc[0] - h[1] * xc[1];
+    // conform.proj_y = conform.msk_y_centr - ((/*h30 - */(/*h[1]*/(conform.sdxy_4 - conform.sdxy_3) / conform.det)) * conform.intermediary_x_centr) - ((/*h[0]*/(conform.sdxy_x1 + conform.sdxy_x2) / conform.det) * conform.msk_x_centr);// h[5] = yc[1] - h[3] * xc[0] - h[4] * xc[1];
+
+    conform.proj_x = conform.msk_x_centr - conform.h_0 * conform.intermediary_x_centr - conform.h_1 * conform.intermediary_y_centr;
+    conform.proj_y = conform.msk_y_centr + conform.h_1 * conform.intermediary_x_centr - conform.h_0 * conform.intermediary_y_centr;
     /* найти вторичные параметры */
-    conform.scale = Math.sqrt(conform.a_1_0 * conform.a_1_0 + conform.a_1_1 * conform.a_1_1); //hypot(a[1][0], a[1][1])
-    conform.rotation = Math.atan2(conform.a_1_1, conform.a_1_0) / Math.PI * 180; //atan2(a[1][1], a[1][0])
+    conform.scale = Math.sqrt(conform.h_0 * conform.h_0 + conform.h_1 * conform.h_1);
+    conform.rotation = Math.atan2(conform.h_1, conform.h_0) / Math.PI * 180;
+    //-------------------------------------------------------
+
+    secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
+    secondProjection = secondProjection + " +lat_0=" + Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
+    secondProjection = secondProjection + " +lonc=" + Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
+    secondProjection = secondProjection + " +alpha=-0.000000001";
+    secondProjection = secondProjection + " +k=" + conform.scale;
+    secondProjection = secondProjection + " +x_0=" + conform.proj_x;
+    secondProjection = secondProjection + " +y_0=" + conform.proj_y;
+    secondProjection = secondProjection + " +gamma=" + conform.rotation;
+    secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
+    conform.projstring = secondProjection;
+    point_arr.forEach(newSkPoint);
+
 
     console.log(point_arr);
     console.log(conform);
