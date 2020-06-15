@@ -17,15 +17,9 @@ var conform = {"summ_intermediary_x":0,
   "msk_y_centr":0,
   "h_0":0,
   "h_1":0,
-  // "a_1":0,
-  // "b_1":0,
-  // "a_0":0,
-  // "b_0":0,
   "proj_x":0,
   "proj_y":0,
   "scale":0,
-  // "sdxy_x1":0,
-  // "sdxy_x2":0,
   "det":0,
   "rotation":0};
 
@@ -68,16 +62,6 @@ function additionCord(element, index, array) {
   point_arr[index].dy_intermediary = element.intermediary_y - conform.intermediary_y_centr;
   point_arr[index].dy_msk = element.msk_y - conform.msk_y_centr;
   /* суммировать */
-  // conform.sdxy_1 += point_arr[index].dx_intermediary * point_arr[index].dx_msk;
-  // conform.sdxy_2 += point_arr[index].dy_intermediary * point_arr[index].dy_msk;
-  // conform.sdxy_3 += point_arr[index].dx_intermediary * point_arr[index].dy_msk;
-  // conform.sdxy_4 += point_arr[index].dy_intermediary * point_arr[index].dx_msk;
-  // conform.sdxy_5 += (point_arr[index].dx_intermediary * point_arr[index].dx_intermediary) + (point_arr[index].dy_intermediary * point_arr[index].dy_intermediary);
-  //
-  // conform.sdxy_x1 += point_arr[index].dy_intermediary * point_arr[index].dx_intermediary;
-  // conform.sdxy_x2 += point_arr[index].dx_msk * point_arr[index].dy_msk;
-  // conform.det += point_arr[index].dx_intermediary * point_arr[index].dx_intermediary + point_arr[index].dx_msk * point_arr[index].dx_msk;
-
   conform.sdxy_0 += point_arr[index].dx_intermediary * point_arr[index].dx_intermediary;
   conform.sdxy_2 += point_arr[index].dy_intermediary * point_arr[index].dy_intermediary;
   conform.sdxy_3 += point_arr[index].dx_intermediary * point_arr[index].dx_msk;
@@ -121,15 +105,9 @@ function poj_parametr() {
     "msk_y_centr":0,
     "h_0":0,
     "h_1":0,
-    // "a_1":0,
-    // "b_1":0,
-    // "a_0":0,
-    // "b_0":0,
     "scale":0,
     "proj_x":0,
     "proj_y":0,
-    // "sdxy_x1":0,
-    // "sdxy_x2":0,
     "det":0,
     "rotation":0};
 
@@ -143,11 +121,7 @@ function poj_parametr() {
     secondProjection = secondProjection + " +lat_0=" + arrp.wgs_y;
     secondProjection = secondProjection + " +lonc=" + arrp.wgs_x;
     secondProjection = secondProjection + " +alpha=-0.000000001 +k=1 +x_0=0 +y_0=0 +gamma=0";
-    //secondProjection = secondProjection + " +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0";
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
-    //console.log(secondProjection);
-    //secondProjection = "+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass";
-    //console.log(proj4(wgs_proj,secondProjection,[23.12716113273887,52.02642240080064]));
 
     var row_geopoint = document.querySelectorAll(`[name="th"]`);
     row_geopoint.forEach(str_tab);
@@ -170,15 +144,6 @@ function poj_parametr() {
     conform.det = conform.sdxy_0 + conform.sdxy_2;
     conform.h_0 = (conform.sdxy_3 + conform.sdxy_6) / conform.det;
     conform.h_1 = (conform.sdxy_4 - conform.sdxy_5) / conform.det;
-    // conform.a_1 = (conform.sdxy_1 + conform.sdxy_2) / conform.sdxy_5;
-    // conform.b_1 = (conform.sdxy_3 - conform.sdxy_4) / conform.sdxy_5;
-    // conform.a_0 = conform.msk_x_centr - (conform.a_1 * conform.intermediary_x_centr) + (conform.b_1 * conform.intermediary_y_centr);
-    // conform.b_0 = conform.msk_y_centr - (conform.b_1 * conform.intermediary_x_centr) - (conform.a_1 * conform.intermediary_y_centr);
-
-    //conform.proj_x = conform.intermediary_y_centr - (conform.a_1 * conform.intermediary_x_centr) - (conform.b_1 * conform.msk_x_centr);// h[2] = yc[0] - h[0] * xc[0] - h[1] * xc[1];
-    // conform.proj_x = conform.intermediary_y_centr - ((/*h[0]*/(conform.sdxy_x1 + conform.sdxy_x2) / conform.det) * conform.intermediary_x_centr) - ((/*h[1]*/(conform.sdxy_4 - conform.sdxy_3) / conform.det) * conform.msk_x_centr);// h[2] = yc[0] - h[0] * xc[0] - h[1] * xc[1];
-    // conform.proj_y = conform.msk_y_centr - ((/*h30 - */(/*h[1]*/(conform.sdxy_4 - conform.sdxy_3) / conform.det)) * conform.intermediary_x_centr) - ((/*h[0]*/(conform.sdxy_x1 + conform.sdxy_x2) / conform.det) * conform.msk_x_centr);// h[5] = yc[1] - h[3] * xc[0] - h[4] * xc[1];
-
     conform.proj_x = conform.msk_x_centr - conform.h_0 * conform.intermediary_x_centr - conform.h_1 * conform.intermediary_y_centr;
     conform.proj_y = conform.msk_y_centr + conform.h_1 * conform.intermediary_x_centr - conform.h_0 * conform.intermediary_y_centr;
     /* найти вторичные параметры */
@@ -363,11 +328,6 @@ function addrow(){
 
 function m2s(my_id){
   if(my_id.substring(0,1) == 'X'){
-    // var XXX = document.getElementById('XXX' + my_id.substring(1));
-    // var XXD = document.getElementById('XXD' + my_id.substring(1));
-    // var XXM = document.getElementById('XXM' + my_id.substring(1));
-    // var XXS = document.getElementById('XXS' + my_id.substring(1));
-
     var XXX = document.querySelectorAll(`[name="XXX"][id="${my_id.substring(1)}"]`)[0];
     var XXD = document.querySelectorAll(`[name="XXD"][id="${my_id.substring(1)}"]`)[0];
     var XXM = document.querySelectorAll(`[name="XXM"][id="${my_id.substring(1)}"]`)[0];
