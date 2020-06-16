@@ -1,7 +1,8 @@
 var point_arr = [];    //Массив точек для расчета параметров
-var wgs_proj ='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+var wgs_proj ='+proj=longlat +datum=WGS84 +no_defs';
 var secondProjection;
-var conform = {"summ_intermediary_x":0,
+var conform = {
+  "summ_intermediary_x":0,
   "summ_intermediary_y":0,
   "summ_msk_x":0,
   "summ_msk_y":0,
@@ -71,15 +72,14 @@ function additionCord(element, index, array) {
 }
 
 function newSkPoint(element, index, array) {
-  point_arr[index].xv = conform.a_0 + (conform.a_1 * element.intermediary_x) - (conform.b_1 * element.intermediary_y);
-  point_arr[index].yv = conform.b_0 + (conform.b_1 * element.intermediary_x) + (conform.a_1 * element.intermediary_y);
-  point_arr[index].vx = element.msk_x - point_arr[index].xv;
-  point_arr[index].vy = element.msk_y - point_arr[index].yv;
-  point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);
-
-  let tpsnform_msk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);
+  let tpsnform_msk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);      //Пересчитываем точку по вычисленным параметрам
   point_arr[index].transform_x = tpsnform_msk[0];
   point_arr[index].transform_y = tpsnform_msk[1];
+  point_arr[index].vx = point_arr[index].msk_x - point_arr[index].transform_x;              //Выясняем разницу между исходной коодинате X для точки в МСК и пересчитанной по выявленным параметрам
+  point_arr[index].vy = point_arr[index].msk_y - point_arr[index].transform_y;              //Выясняем разницу между исходной коодинате Y для точки в МСК и пересчитанной по выявленным параметрам
+  point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);  //Выясняем общую невязку для точки в МСК и пересчитанной по выявленным параметрам
+  point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
+  point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
 }
 
 function poj_parametr() {
@@ -89,7 +89,8 @@ function poj_parametr() {
   point_arr = [];
   let arrp = {};
   secondProjection ="";
-  conform = {"summ_intermediary_x":0,
+  conform = {
+    "summ_intermediary_x":0,
     "summ_intermediary_y":0,
     "summ_msk_x":0,
     "summ_msk_y":0,
@@ -115,14 +116,14 @@ function poj_parametr() {
   arrp.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
   arrp.msk_x = Number.parseFloat(document.querySelectorAll(`[name="MXX"][id="0"]`)[0].value);
   arrp.msk_y = Number.parseFloat(document.querySelectorAll(`[name="MYY"][id="0"]`)[0].value);
-  point_arr.push(arrp);
+  // point_arr.push(arrp);
   if (arrp.wgs_x && arrp.wgs_y && arrp.msk_x && arrp.msk_y) {
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + arrp.wgs_y;
     secondProjection = secondProjection + " +lonc=" + arrp.wgs_x;
-    secondProjection = secondProjection + " +alpha=-0.000000001 +k=1 +x_0=0 +y_0=0 +gamma=0";
+    secondProjection = secondProjection + " +alpha=-0.01 +k=1 +x_0=0 +y_0=0 +gamma=0";
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
-
+    // console.log(secondProjection);
     var row_geopoint = document.querySelectorAll(`[name="th"]`);
     row_geopoint.forEach(str_tab);
     point_arr = point_arr.filter(filter_point);
@@ -154,7 +155,7 @@ function poj_parametr() {
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
     secondProjection = secondProjection + " +lonc=" + Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
-    secondProjection = secondProjection + " +alpha=-0.000000001";
+    secondProjection = secondProjection + " +alpha=-0.01";
     secondProjection = secondProjection + " +k=" + conform.scale;
     secondProjection = secondProjection + " +x_0=" + conform.proj_x;
     secondProjection = secondProjection + " +y_0=" + conform.proj_y;

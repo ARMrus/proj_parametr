@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script src="js/js_main.js"></script>
-    <script src="js/proj4.js"></script>
+    <script src="js/proj2.6.js"></script>
     <title>Для теста расчета</title>
   </head>
   <body>
@@ -22,7 +22,7 @@
           <tr>
             <td></td>
             <td>Марьино (959)</td>
-            <td><input id="0" type="text" name="XXX" value="29.9351669792"></td>
+            <td><input id="0" type="text" name="XXX" value="33"></td>
             <td><input id="0" type="text" name="YYY" value="59.8338730825"></td>
             <td><input id="0" type="text" name="MXX" value="2193212.72"></td>
             <td><input id="0" type="text" name="MYY" value="425057.63"></td>
@@ -50,6 +50,14 @@
             <td><input type="text" name="YYY" value="59.8301622944"></td>
             <td><input type="text" name="MXX" value="2196837.89"></td>
             <td><input type="text" name="MYY" value="424590.33"></td>
+          </tr>
+          <tr name="th">
+            <td><input type="checkbox" name="active" checked></td>
+            <td>Марьино (959)</td>
+            <td><input type="text" name="XXX" value="29.9351669792"></td>
+            <td><input type="text" name="YYY" value="59.8338730825"></td>
+            <td><input type="text" name="MXX" value="2193212.72"></td>
+            <td><input type="text" name="MYY" value="425057.63"></td>
           </tr>
         </tbody>
     </table>
