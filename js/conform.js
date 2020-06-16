@@ -80,6 +80,10 @@ function newSkPoint(element, index, array) {
   point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);  //Выясняем общую невязку для точки в МСК и пересчитанной по выявленным параметрам
   point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
   point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
+
+  tpsnform_msk = proj4(conform.projstring,wgs_proj,[element.msk_x,element.msk_y]);      //Пересчитываем точку по вычисленным параметрам
+  point_arr[index].transform_wgs_x = tpsnform_msk[0];
+  point_arr[index].transform_wgs_y = tpsnform_msk[1];
 }
 
 function poj_parametr() {
@@ -114,7 +118,7 @@ function poj_parametr() {
 
   arrp.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
   arrp.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
-  if (arrp.wgs_x && arrp.wgs_y && arrp.msk_x && arrp.msk_y) {
+  if (arrp.wgs_x && arrp.wgs_y) {
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + arrp.wgs_y;
     secondProjection = secondProjection + " +lonc=" + arrp.wgs_x;
