@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <script src="js/js_main.js"></script>
     <script src="js/proj2.6.js"></script>
+    <script src="js/conform.js"></script>
     <title>Для теста расчета</title>
   </head>
   <body>
