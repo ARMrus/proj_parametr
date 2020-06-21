@@ -144,6 +144,9 @@
         permanent: true,
         direction: 'right'
       }).addTo(layerGroup);
+
+    map.setView([lon,lat], 10);
+
   }
 
 
