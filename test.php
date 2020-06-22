@@ -8,10 +8,10 @@
   <script src="js/conform.js"></script>
 
   <!-- leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="css/leaflet.css" />
+  <script src="js/leaflet.js"></script>
 
-  <script src="http://makinacorpus.github.io/Leaflet.RestoreView/leaflet.restoreview.js"></script>
+  <script src="js/leaflet.restoreview.js"></script>
 
   <style>
     #map {
@@ -131,13 +131,13 @@
   layerGroup.addTo(map);
 
 //========================================================
-  function PointAdd (ID_lat, ID_lon) 
+  function PointAdd (ID_lat, ID_lon)
   {
     lat = document.getElementById(ID_lat).value;
     lon = document.getElementById(ID_lon).value
 
-   
-    layerGroup.clearLayers(); 
+
+    layerGroup.clearLayers();
 
     var marker = L.marker([lon,lat])
       .bindTooltip("Label", {
