@@ -146,9 +146,22 @@
   };
 
 
-  var layerGroup    = L.layerGroup().addTo(map);
-  var layer_geojson = L.geoJSON(check_points).addTo(layerGroup);
-  
+  var layerGroup = L.layerGroup().addTo(map);
+  var layer_geojson = L.geoJSON(check_points,
+   {
+      pointToLayer: function (feature, latlng) {
+
+        var redMarker = L.AwesomeMarkers.icon({
+          icon: 'coffee',
+          markerColor: 'green'
+        });
+
+        return L.marker(latlng, { icon: redMarker });
+      }
+    }
+
+  ).addTo(layerGroup);
+
 
   var overlays = {
     "layer": layerGroup,
