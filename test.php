@@ -10,17 +10,13 @@
   <!-- leaflet -->
   <link rel="stylesheet" href="css/leaflet.css" />
   <script src="js/leaflet.js"></script>
-
   <script src="js/leaflet.restoreview.js"></script>
-
-  <style>
-    #map {
-      width: 100%;
-      height: 400px;
-    }
-  </style>
-
-
+    <style>
+      #map {
+        width: 100%;
+        height: 600px;
+      }
+    </style>
   <title>Для теста расчета</title>
 </head>
 

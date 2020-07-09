@@ -9,7 +9,7 @@
 
   <script src="test.geojson.js"></script>
 
-  
+
 
   <!-- leaflet -->
   <!-- <link rel="stylesheet" href="css/leaflet.css" />
@@ -23,16 +23,11 @@
 
   <script src="http://makinacorpus.github.io/Leaflet.RestoreView/leaflet.restoreview.js"></script>
 
-<<<<<<< HEAD
-
-
-=======
-  <!-- https://www.npmjs.com/package/leaflet.awesome-markers  -->  
+  <!-- https://www.npmjs.com/package/leaflet.awesome-markers  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-  
-   
->>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
+
+
   <style>
     #map {
       width: 100%;
@@ -107,7 +102,7 @@
   </table>
   <button type="button" onClick="poj_parametr()">PROJ!</button>
   <br/>
-  <button type="button" onclick="PointAddAll();"> draw all points </button> 
+  <button type="button" onclick="PointAddAll();"> draw all points </button>
 
 
   <div id='map'></div>
@@ -118,13 +113,13 @@
     maxZoom: 40,
     layers: [],
     zoom: 10,
-		center:[60, 29.99]     
+		center:[60, 29.99]
   });
 
 
   map.restoreView();
  //   map.setView([60, 29.99], 10);
-  
+
   //===============================================
 
 
@@ -143,7 +138,7 @@
 
   //===============================================
 
-  
+
 
   var baseLayers = {
     "World_Physical_Map": World_Physical_Map,
@@ -151,11 +146,6 @@
   };
 
 
-<<<<<<< HEAD
-  var layerGroup    = L.layerGroup().addTo(map);
-  var layer_geojson = L.geoJSON(check_points).addTo(layerGroup);
-  
-=======
   var layerGroup = L.layerGroup().addTo(map);
   var layer_geojson = L.geoJSON(check_points,
    {
@@ -172,7 +162,6 @@
 
   ).addTo(layerGroup);
 
->>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
 
   var overlays = {
     "layer": layerGroup,
@@ -211,17 +200,13 @@ function PointAdd_no_clear (ID_lat, ID_lon)
     lat = document.getElementById(ID_lat).value;
     lon = document.getElementById(ID_lon).value
 
-<<<<<<< HEAD
-    var marker = L.marker([lon,lat])
-=======
   // Creates a red marker with the coffee icon
   var redMarker = L.AwesomeMarkers.icon({
       icon: 'coffee',
       markerColor: 'red'
     });
-    
+
     var marker = L.marker([lon,lat],  {icon: redMarker})
->>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
       .bindTooltip(ID_lat, {
         permanent: true,
         direction: 'right'
@@ -229,8 +214,8 @@ function PointAdd_no_clear (ID_lat, ID_lon)
 
     map.setView([lon,lat], 10);
   }
-  
-  
+
+
 //========================================================
 function PointAddAll ()
 //========================================================
@@ -244,11 +229,10 @@ function PointAddAll ()
  }
 
 
- 
+
 </script>
 
 </body>
 
 
 </html>
-
