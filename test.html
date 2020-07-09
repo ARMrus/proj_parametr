@@ -23,8 +23,16 @@
 
   <script src="http://makinacorpus.github.io/Leaflet.RestoreView/leaflet.restoreview.js"></script>
 
+<<<<<<< HEAD
 
 
+=======
+  <!-- https://www.npmjs.com/package/leaflet.awesome-markers  -->  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+  
+   
+>>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
   <style>
     #map {
       width: 100%;
@@ -143,9 +151,28 @@
   };
 
 
+<<<<<<< HEAD
   var layerGroup    = L.layerGroup().addTo(map);
   var layer_geojson = L.geoJSON(check_points).addTo(layerGroup);
   
+=======
+  var layerGroup = L.layerGroup().addTo(map);
+  var layer_geojson = L.geoJSON(check_points,
+   {
+      pointToLayer: function (feature, latlng) {
+
+        var redMarker = L.AwesomeMarkers.icon({
+          icon: 'coffee',
+          markerColor: 'green'
+        });
+
+        return L.marker(latlng, { icon: redMarker });
+      }
+    }
+
+  ).addTo(layerGroup);
+
+>>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
 
   var overlays = {
     "layer": layerGroup,
@@ -184,7 +211,17 @@ function PointAdd_no_clear (ID_lat, ID_lon)
     lat = document.getElementById(ID_lat).value;
     lon = document.getElementById(ID_lon).value
 
+<<<<<<< HEAD
     var marker = L.marker([lon,lat])
+=======
+  // Creates a red marker with the coffee icon
+  var redMarker = L.AwesomeMarkers.icon({
+      icon: 'coffee',
+      markerColor: 'red'
+    });
+    
+    var marker = L.marker([lon,lat],  {icon: redMarker})
+>>>>>>> c25dc31e18ffb76ee9ddefe4a70c394f3381c2ab
       .bindTooltip(ID_lat, {
         permanent: true,
         direction: 'right'
