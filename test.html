@@ -23,8 +23,13 @@
 
   <script src="http://makinacorpus.github.io/Leaflet.RestoreView/leaflet.restoreview.js"></script>
 
-
-
+  <!-- https://www.npmjs.com/package/leaflet.awesome-markers
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">   -->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+  
+   
   <style>
     #map {
       width: 100%;
@@ -184,7 +189,13 @@ function PointAdd_no_clear (ID_lat, ID_lon)
     lat = document.getElementById(ID_lat).value;
     lon = document.getElementById(ID_lon).value
 
-    var marker = L.marker([lon,lat])
+  // Creates a red marker with the coffee icon
+  var redMarker = L.AwesomeMarkers.icon({
+      icon: 'coffee',
+      markerColor: 'red'
+    });
+    
+    var marker = L.marker([lon,lat],  {icon: redMarker})
       .bindTooltip(ID_lat, {
         permanent: true,
         direction: 'right'
