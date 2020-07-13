@@ -41,10 +41,8 @@
           <tr>
             <td></td>
             <td>Марьино (959)</td>
-            <td><input id="0" type="text" name="XXX" value="33"></td>
+            <td><input id="0" type="text" name="XXX" value="29.935198"></td>
             <td><input id="0" type="text" name="YYY" value="59.8338730825"></td>
-            <td><input id="0" type="text" name="MXX" value="2193212.72"></td>
-            <td><input id="0" type="text" name="MYY" value="425057.63"></td>
           </tr>
           <tr name="th">
             <td><input type="checkbox" name="active" checked></td>
@@ -119,26 +117,13 @@
     };
 
 
-    var layerGroup = L.layerGroup().addTo(map);
-    var layer_geojson = L.geoJSON(check_points,
-     {
-        pointToLayer: function (feature, latlng) {
-
-          var redMarker = L.AwesomeMarkers.icon({
-            icon: 'coffee',
-            markerColor: 'green'
-          });
-
-          return L.marker(latlng, { icon: redMarker });
-        }
-      }
-
-    ).addTo(layerGroup);
+    var Point_wgs = L.layerGroup().addTo(map);
+    var Point_msk = L.layerGroup().addTo(map);
 
 
     var overlays = {
-      "layer": layerGroup,
-  	  "layer_geojson": layer_geojson
+      "WGS ГГС": Point_wgs,
+  	  "MSK ГГС": Point_msk
   	};
 
     L.control.layers(baseLayers, overlays).addTo(map);
