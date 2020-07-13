@@ -10,20 +10,11 @@
   <script src="test.geojson.js"></script>
 
 
-
-  <!-- leaflet -->
-  <!-- <link rel="stylesheet" href="css/leaflet.css" />
-  <script src="js/leaflet.js"></script>
-
-  <script src="js/leaflet.restoreview.js"></script> -->
-
-  <!-- leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
   <script src="http://makinacorpus.github.io/Leaflet.RestoreView/leaflet.restoreview.js"></script>
 
-  <!-- https://www.npmjs.com/package/leaflet.awesome-markers  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 
@@ -137,9 +128,7 @@
 
 
   //===============================================
-
-
-
+  //Задание основных слоев. Два слоя карты и два слоя точек
   var baseLayers = {
     "World_Physical_Map": World_Physical_Map,
     "OSM": layer_OSM_streets
@@ -173,7 +162,7 @@
 
 
 
-
+//Установка одной точки и позиционирование по ней
 //========================================================
   function PointAdd (ID_lat, ID_lon)
 //========================================================
@@ -192,7 +181,7 @@
     map.setView([lon,lat], 10);
   }
 
-
+//Отображение точки
 //========================================================
 function PointAdd_no_clear (ID_lat, ID_lon)
 //========================================================
@@ -215,7 +204,7 @@ function PointAdd_no_clear (ID_lat, ID_lon)
     map.setView([lon,lat], 10);
   }
 
-
+//Установка всех точек слоев при нажатии кнопки
 //========================================================
 function PointAddAll ()
 //========================================================

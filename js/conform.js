@@ -168,6 +168,7 @@ function poj_parametr() {
 
     console.log(point_arr);
     console.log(conform);
+    point_arr.forEach(PointAddAll);
   }
   else {
     // Тут надо подсветить поля для обязательного заполнения
