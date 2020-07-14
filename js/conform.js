@@ -26,14 +26,16 @@ var conform = {
 
 function str_tab(element, index, array) {
   let active = element.querySelectorAll(`[name="active"]`)[0];
-  if(active.checked == true){
+  // if(active.checked == true){
     let arrp = {};
     arrp.wgs_x = Number.parseFloat(element.querySelectorAll(`[name="XXX"]`)[0].value);
     arrp.wgs_y = Number.parseFloat(element.querySelectorAll(`[name="YYY"]`)[0].value);
     arrp.msk_x = Number.parseFloat(element.querySelectorAll(`[name="MXX"]`)[0].value);
     arrp.msk_y = Number.parseFloat(element.querySelectorAll(`[name="MYY"]`)[0].value);
+    arrp.active = active.checked;
+    arrp.name = element.querySelectorAll(`[name="NickName"]`)[0].value;
     point_arr.push(arrp);
-  }
+  // }
 }
 
 function filter_point(point_to_filter) {
@@ -44,12 +46,16 @@ function filter_point(point_to_filter) {
 }
 
 function transform_intermediary(element, index, array) {
+  if(!element.active)
+    return;
   let tpsnform_msk = proj4(wgs_proj,secondProjection,[element.wgs_x,element.wgs_y]);
   point_arr[index].intermediary_x = tpsnform_msk[0];
   point_arr[index].intermediary_y = tpsnform_msk[1];
 }
 
 function summCord(element, index, array) {
+  if(!element.active)
+    return;
   conform.summ_intermediary_x += element.intermediary_x;
   conform.summ_intermediary_y += element.intermediary_y;
   conform.summ_msk_x += element.msk_x;
@@ -57,6 +63,8 @@ function summCord(element, index, array) {
 }
 
 function additionCord(element, index, array) {
+  if(!element.active)
+    return;
   /* вычислить разности */
   point_arr[index].dx_intermediary = element.intermediary_x - conform.intermediary_x_centr;
   point_arr[index].dx_msk = element.msk_x - conform.msk_x_centr;
@@ -78,12 +86,19 @@ function newSkPoint(element, index, array) {
   point_arr[index].vx = point_arr[index].msk_x - point_arr[index].transform_x;              //Выясняем разницу между исходной коодинате X для точки в МСК и пересчитанной по выявленным параметрам
   point_arr[index].vy = point_arr[index].msk_y - point_arr[index].transform_y;              //Выясняем разницу между исходной коодинате Y для точки в МСК и пересчитанной по выявленным параметрам
   point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);  //Выясняем общую невязку для точки в МСК и пересчитанной по выявленным параметрам
-  point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
-  point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
-
+  if(element.active){
+    point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
+    point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
+  }
   tpsnform_msk = proj4(conform.projstring,wgs_proj,[element.msk_x,element.msk_y]);      //Пересчитываем точку по вычисленным параметрам
   point_arr[index].transform_wgs_x = tpsnform_msk[0];
   point_arr[index].transform_wgs_y = tpsnform_msk[1];
+}
+
+function count_activ_point(sum, current) {
+  if(current.active)
+    return ++sum;
+  return sum;
 }
 
 function poj_parametr() {
@@ -136,10 +151,12 @@ function poj_parametr() {
     /* подсчитать сумму координат */
     point_arr.forEach(summCord);
     /* найти центр масс */
-    conform.intermediary_x_centr = (conform.summ_intermediary_x) / point_arr.length;
-    conform.msk_x_centr = (conform.summ_msk_x) / point_arr.length;
-    conform.intermediary_y_centr = (conform.summ_intermediary_y) / point_arr.length;
-    conform.msk_y_centr = (conform.summ_msk_y) / point_arr.length;
+    // console.log(point_arr.reduce(count_activ_point,0));
+    let count_ggs_activ = point_arr.reduce(count_activ_point,0);
+    conform.intermediary_x_centr = (conform.summ_intermediary_x) / count_ggs_activ;
+    conform.msk_x_centr = (conform.summ_msk_x) / count_ggs_activ;
+    conform.intermediary_y_centr = (conform.summ_intermediary_y) /count_ggs_activ;
+    conform.msk_y_centr = (conform.summ_msk_y) / count_ggs_activ;
     /* подсчитать сумму произведений */
     point_arr.forEach(additionCord);
     /* найти первичные параметры */
@@ -169,6 +186,7 @@ function poj_parametr() {
     console.log(point_arr);
     console.log(conform);
     point_arr.forEach(PointAddAll);
+    center_msk_map(arrp.wgs_x,arrp.wgs_y);
   }
   else {
     // Тут надо подсветить поля для обязательного заполнения

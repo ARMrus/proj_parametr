@@ -18,7 +18,7 @@ function PointAddAll (element, index, array)
     });
 
     var marker = L.marker([element.wgs_y,element.wgs_x],  {icon: redMarker})
-      .bindTooltip('text', {
+      .bindTooltip(element.name, {
         permanent: true,
         direction: 'right'
       }).addTo(Point_wgs);
@@ -33,10 +33,32 @@ function PointAddAll (element, index, array)
       });
 
       var marker = L.marker([element.transform_wgs_y,element.transform_wgs_x],  {icon: greenMarker})
-        .bindTooltip('text', {
+        .bindTooltip(element.name, {
           permanent: true,
           direction: 'right'
         }).addTo(Point_msk);
 
       map.setView([element.transform_wgs_y,element.transform_wgs_x], 10);
- }
+}
+
+//Отображение центральной точки МСК
+//========================================================
+function center_msk_map (lat, lon)
+//========================================================
+{
+  center_msk.clearLayers();
+
+  // Creates a red marker with the coffee icon
+  var blueMarker = L.AwesomeMarkers.icon({
+      icon: 'coffee',
+      markerColor: 'blue'
+    });
+
+    var marker = L.marker([lon,lat],  {icon: blueMarker})
+      .bindTooltip('Центр', {
+        permanent: true,
+        direction: 'right'
+      }).addTo(center_msk);
+
+    map.setView([lon,lat], 10);
+}

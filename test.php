@@ -40,13 +40,13 @@
           </tr>
           <tr>
             <td></td>
-            <td>Марьино (959)</td>
+            <td>Центральная точка</td>
             <td><input id="0" type="text" name="XXX" value="29.935198"></td>
             <td><input id="0" type="text" name="YYY" value="59.8338730825"></td>
           </tr>
           <tr name="th">
             <td><input type="checkbox" name="active" checked></td>
-            <td>Аннинно (900)</td>
+            <td><input type="text" name="NickName" value="Аннинно (900)"></td>
             <td><input type="text" name="XXX" value="30.0412923373"></td>
             <td><input type="text" name="YYY" value="59.7795946807"></td>
             <td><input type="text" name="MXX" value="2199080.76"></td>
@@ -54,7 +54,7 @@
           </tr>
           <tr name="th">
             <td><input type="checkbox" name="active" checked></td>
-            <td>Егерская слобода (993)</td>
+            <td><input type="text" name="NickName" value="Егерская слобода (993)"></td>
             <td><input type="text" name="XXX" value="29.840390224"></td>
             <td><input type="text" name="YYY" value="59.8679694038"></td>
             <td><input type="text" name="MXX" value="2187961.87"></td>
@@ -62,7 +62,7 @@
           </tr>
           <tr name="th">
             <td><input type="checkbox" name="active" checked></td>
-            <td>Новополье (960)</td>
+            <td><input type="text" name="NickName" value="Новополье (960)"></td>
             <td><input type="text" name="XXX" value="29.9999211612"></td>
             <td><input type="text" name="YYY" value="59.8301622944"></td>
             <td><input type="text" name="MXX" value="2196837.89"></td>
@@ -70,7 +70,7 @@
           </tr>
           <tr name="th">
             <td><input type="checkbox" name="active" checked></td>
-            <td>Марьино (959)</td>
+            <td><input type="text" name="NickName" value="Марьино (959)"></td>
             <td><input type="text" name="XXX" value="29.9351669792"></td>
             <td><input type="text" name="YYY" value="59.8338730825"></td>
             <td><input type="text" name="MXX" value="2193212.72"></td>
@@ -119,11 +119,13 @@
 
     var Point_wgs = L.layerGroup().addTo(map);
     var Point_msk = L.layerGroup().addTo(map);
+    var center_msk = L.layerGroup().addTo(map);
 
 
     var overlays = {
       "WGS ГГС": Point_wgs,
-  	  "MSK ГГС": Point_msk
+  	  "MSK ГГС": Point_msk,
+      "MSK Центр": center_msk
   	};
 
     L.control.layers(baseLayers, overlays).addTo(map);
