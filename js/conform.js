@@ -1,5 +1,6 @@
 var point_arr = [];    //Массив точек для расчета параметров
-var wgs_proj ='+proj=longlat +datum=WGS84 +no_defs';
+// var wgs_proj ='+proj=longlat +datum=WGS84 +no_defs';
+var wgs_proj ='EPSG:4326';  //СК для картографии и спутниковых измерений. Возможно сделаем ее выбираемой из списка в будущем.
 var secondProjection;
 var conform = {
   "summ_intermediary_x":0,
@@ -80,6 +81,10 @@ function additionCord(element, index, array) {
 }
 
 function newSkPoint(element, index, array) {
+  //В связи с нерешенной проблемой в proj4js  с gamma  https://github.com/proj4js/proj4js/issues/301
+  //Для конечного вычисления точек по полученным парамметрам, будем считать координаты
+  //на projbin на стороне сервера, для чего будем обращаться с функицей на сервер, где скрипт на php
+  //будет обращаться к команде echo Xmsk Ymsk | cs2cs proj_string +to +init=epsg:4326 и парсить ответ передавая его браузеру
   let tpsnform_msk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);      //Пересчитываем точку по вычисленным параметрам
   point_arr[index].transform_x = tpsnform_msk[0];
   point_arr[index].transform_y = tpsnform_msk[1];
@@ -102,9 +107,6 @@ function count_activ_point(sum, current) {
 }
 
 function poj_parametr() {
-  //epsg 4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
-  //+proj=omerc +lat_0=52.02642240080064 +lonc=21 +alpha=-0.0001 +k=1 +x_0=0 +y_0=0 +gamma=0 +ellps=krass
-
   point_arr = [];
   let arrp = {};
   secondProjection ="";
@@ -177,9 +179,11 @@ function poj_parametr() {
     secondProjection = secondProjection + " +k=" + conform.scale;
     secondProjection = secondProjection + " +x_0=" + conform.proj_x;
     secondProjection = secondProjection + " +y_0=" + conform.proj_y;
-    secondProjection = secondProjection + " +gamma=" + conform.rotation;
+    secondProjection = secondProjection + " +gamma=" + conform.rotation;  //К сожалению на момент написание кода проблема в proj4js  с gamma не решена https://github.com/proj4js/proj4js/issues/301
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
     conform.projstring = secondProjection;
+    console.log(conform.rotation);
+    console.log(conform.projstring);
     point_arr.forEach(newSkPoint);
 
 

@@ -41,7 +41,7 @@
           <tr>
             <td></td>
             <td>Центральная точка</td>
-            <td><input id="0" type="text" name="XXX" value="29.935198"></td>
+            <td><input id="0" type="text" name="XXX" value="29.9351669792"></td>
             <td><input id="0" type="text" name="YYY" value="59.8338730825"></td>
           </tr>
           <tr name="th">
