@@ -118,7 +118,25 @@ function newSkPoint(element, index, array) {
   request.send(params);
 }
 
-var NewPoint_count = 0;
+function clearPointTransform(element, index, array) {
+  point_arr[index].intermediary_x = 0;
+  point_arr[index].intermediary_y = 0;
+  point_arr[index].dx_intermediary = 0;
+  point_arr[index].dx_msk = 0;
+  point_arr[index].dy_intermediary = 0;
+  point_arr[index].dy_msk = 0;
+  point_arr[index].transform_x = 0;
+  point_arr[index].transform_y = 0;
+  point_arr[index].transform_wgs_x = 0;
+  point_arr[index].transform_wgs_y = 0;
+  point_arr[index].vx = 0;
+  point_arr[index].vy = 0;
+  point_arr[index].v = 0;
+  point_arr[index].vconform_x = 0;
+  point_arr[index].vconform_y = 0;
+}
+
+var NewPoint_count;
 function okNewPoint(element, index, array) {
   if(element.transform_x > 0)
     NewPoint_count = NewPoint_count + 1;
@@ -126,7 +144,7 @@ function okNewPoint(element, index, array) {
 function postconform(centrPoint) {
   console.log(centrPoint);
   point_arr.forEach(okNewPoint);
-  if(point_arr.length != NewPoint_count){
+  if(point_arr.length > NewPoint_count){
     // console.log("ждем");
     setTimeout(postconform, 200, centrPoint);
     return;
@@ -148,6 +166,7 @@ function count_activ_point(sum, current) {
 }
 
 function poj_parametr() {
+  NewPoint_count = 0;
   point_arr = [];
   let centrPoint = {};
   secondProjection ="";
@@ -177,6 +196,7 @@ function poj_parametr() {
   centrPoint.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
   centrPoint.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
   if (centrPoint.wgs_x && centrPoint.wgs_y) {
+    point_arr.forEach(clearPointTransform);   //Удаляем всю информацию о трансформации из массива точек
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + centrPoint.wgs_y;
     secondProjection = secondProjection + " +lonc=" + centrPoint.wgs_x;
