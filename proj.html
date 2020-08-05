@@ -15,284 +15,350 @@
 <script src="js/js_main.js"></script>
 <script src="js/proj2.6.js"></script>
 <script src="js/conform.js"></script>
+
+<!-- leaflet -->
+<link rel="stylesheet" href="css/leaflet.css" />
+<link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
+<script src="js/leaflet.js"></script>
+<script src="js/leaflet.restoreview.js"></script>
+<script src="js/leaflet.awesome-markers.js"></script>
+<script src="js/map.js"></script>
+	<style>
+		#map {
+			width: 100%;
+			height: 600px;
+		}
+	</style>
 </head>
 <body onload="mnnrefresh()">
-<form method="post">
-	<table name="TBL" id="TBL0" width="95%" align="center">
-		<tbody>
-			<tr align="center">
-				<td colspan="4">Долгота центральной точки</td>
-				<td colspan="4">Широта центральной точки</td>
-				<td colspan="3">Датум и проекция</td>
-				<td colspan="1">Управление</td>
-			</tr>
-			<tr align="center">
-				<td colspan="4">XX.XXXXX°</td>
-				<td colspan="4">YY.YYYYY°</td>
-				<td>Проекция</td>
-				<td colspan="2">
-					<select size="1" name="proj" id="projselect">
-						<option value="aea">Albers Equal Area</option>
-						<option value="aeqd">Azimuthal Equidistant</option>
-						<option value="airy">Airy</option>
-						<option value="aitoff">Aitoff</option>
-						<option value="alsk">Mod. Stereographic of Alaska</option>
-						<option value="apian">Apian Globular I</option>
-						<option value="august">August Epicycloidal</option>
-						<option value="bacon">Bacon Globular</option>
-						<option value="bipc">Bipolar conic of western hemisphere</option>
-						<option value="boggs">Boggs Eumorphic</option>
-						<option value="bonne">Bonne (Werner lat_1=90)</option>
-						<option value="calcofi">Cal Coop Ocean Fish Invest Lines/Stations</option>
-						<option value="cass">Cassini</option>
-						<option value="cc">Central Cylindrical</option>
-						<option value="cea">Equal Area Cylindrical</option>
-						<option value="chamb">Chamberlin Trimetric</option>
-						<option value="collg">Collignon</option>
-						<option value="comill">Compact Miller</option>
-						<option value="crast">Craster Parabolic (Putnins P4)</option>
-						<option value="denoy">Denoyer Semi-Elliptical</option>
-						<option value="eck1">Eckert I</option>
-						<option value="eck2">Eckert II</option>
-						<option value="eck3">Eckert III</option>
-						<option value="eck4">Eckert IV</option>
-						<option value="eck5">Eckert V</option>
-						<option value="eck6">Eckert VI</option>
-						<option value="eqc">Equidistant Cylindrical (Plate Caree)</option>
-						<option value="eqdc">Equidistant Conic</option>
-						<option value="euler">Euler</option>
-						<option value="etmerc">Extended Transverse Mercator</option>
-						<option value="fahey">Fahey</option>
-						<option value="fouc">Foucaut</option>
-						<option value="fouc_s">Foucaut Sinusoidal</option>
-						<option value="gall">Gall (Gall Stereographic)</option>
-						<option value="geos">Geostationary Satellite View</option>
-						<option value="gins8">Ginsburg VIII (TsNIIGAiK)</option>
-						<option value="gn_sinu">General Sinusoidal Series</option>
-						<option value="gnom">Gnomonic</option>
-						<option value="goode">Goode Homolosine</option>
-						<option value="gs48">Mod. Stereographic of 48 U.S.</option>
-						<option value="gs50">Mod. Stereographic of 50 U.S.</option>
-						<option value="hammer">Hammer & Eckert-Greifendorff</option>
-						<option value="hatano">Hatano Asymmetrical Equal Area</option>
-						<option value="healpix">HEALPix</option>
-						<option value="rhealpix">rHEALPix</option>
-						<option value="igh">Interrupted Goode Homolosine</option>
-						<option value="imw_p">International Map of the World Polyconic</option>
-						<option value="isea">Icosahedral Snyder Equal Area</option>
-						<option value="kav5">Kavraisky V</option>
-						<option value="kav7">Kavraisky VII</option>
-						<option value="krovak">Krovak</option>
-						<option value="labrd">Laborde</option>
-						<option value="laea">Lambert Azimuthal Equal Area</option>
-						<option value="lagrng">Lagrange</option>
-						<option value="larr">Larrivee</option>
-						<option value="lask">Laskowski</option>
-						<option value="lonlat">Lat/long (Geodetic)</option>
-						<option value="latlon">Lat/long (Geodetic alias)</option>
-						<option value="lcc">Lambert Conformal Conic</option>
-						<option value="lcca">Lambert Conformal Conic Alternative</option>
-						<option value="leac">Lambert Equal Area Conic</option>
-						<option value="lee_os">Lee Oblated Stereographic</option>
-						<option value="loxim">Loximuthal</option>
-						<option value="lsat">Space oblique for LANDSAT</option>
-						<option value="mbt_s">McBryde-Thomas Flat-Polar Sine (No. 1)</option>
-						<option value="mbt_fps">McBryde-Thomas Flat-Pole Sine (No. 2)</option>
-						<option value="mbtfpp">McBride-Thomas Flat-Polar Parabolic</option>
-						<option value="mbtfpq">McBryde-Thomas Flat-Polar Quartic</option>
-						<option value="mbtfps">McBryde-Thomas Flat-Polar Sinusoidal</option>
-						<option value="merc">Mercator</option>
-						<option value="mil_os">Miller Oblated Stereographic</option>
-						<option value="mill">Miller Cylindrical</option>
-						<option value="misrsom">Space oblique for MISR</option>
-						<option value="moll">Mollweide</option>
-						<option value="murd1">Murdoch I</option>
-						<option value="murd2">Murdoch II</option>
-						<option value="murd3">Murdoch III</option>
-						<option value="natearth">Natural Earth</option>
-						<option value="natearth2">Natural Earth 2</option>
-						<option value="nell">Nell</option>
-						<option value="nell_h">Nell-Hammer</option>
-						<option value="nicol">Nicolosi Globular</option>
-						<option value="nsper">Near-sided perspective</option>
-						<option value="nzmg">New Zealand Map Grid</option>
-						<option value="ob_tran">General Oblique Transformation</option>
-						<option value="ocea">Oblique Cylindrical Equal Area</option>
-						<option value="oea">Oblated Equal Area</option>
-						<option selected value="omerc">Oblique Mercator</option>
-						<option value="ortel">Ortelius Oval</option>
-						<option value="ortho">Orthographic</option>
-						<option value="pconic">Perspective Conic</option>
-						<option value="patterson">Patterson Cylindrical</option>
-						<option value="poly">Polyconic (American)</option>
-						<option value="putp1">Putnins P1</option>
-						<option value="putp2">Putnins P2</option>
-						<option value="putp3">Putnins P3</option>
-						<option value="putp3p">Putnins P3'</option>
-						<option value="putp4p">Putnins P4'</option>
-						<option value="putp5">Putnins P5</option>
-						<option value="putp5p">Putnins P5'</option>
-						<option value="putp6">Putnins P6</option>
-						<option value="putp6p">Putnins P6'</option>
-						<option value="qua_aut">Quartic Authalic</option>
-						<option value="qsc">Quadrilateralized Spherical Cube</option>
-						<option value="robin">Robinson</option>
-						<option value="rouss">Roussilhe Stereographic</option>
-						<option value="rpoly">Rectangular Polyconic</option>
-						<option value="sch">Spherical Cross-track Height</option>
-						<option value="sinu">Sinusoidal (Sanson-Flamsteed)</option>
-						<option value="somerc">Swiss. Obl. Mercator</option>
-						<option value="stere">Stereographic</option>
-						<option value="sterea">Oblique Stereographic Alternative</option>
-						<option value="gstmerc">Gauss-Schreiber Transverse Mercator</option>
-						<option value="tcc">Transverse Central Cylindrical</option>
-						<option value="tcea">Transverse Cylindrical Equal Area</option>
-						<option value="times">Times</option>
-						<option value="tissot">Tissot</option>
-						<option value="tmerc">Transverse Mercator</option>
-						<option value="tpeqd">Two Point Equidistant</option>
-						<option value="tpers">Tilted perspective</option>
-						<option value="ups">Universal Polar Stereographic</option>
-						<option value="urm5">Urmaev V</option>
-						<option value="urmfps">Urmaev Flat-Polar Sinusoidal</option>
-						<option value="utm">Universal Transverse Mercator (UTM)</option>
-						<option value="vandg">van der Grinten (I)</option>
-						<option value="vandg2">van der Grinten II</option>
-						<option value="vandg3">van der Grinten III</option>
-						<option value="vandg4">van der Grinten IV</option>
-						<option value="vitk1">Vitkovsky I</option>
-						<option value="wag1">Wagner I (Kavraisky VI)</option>
-						<option value="wag2">Wagner II</option>
-						<option value="wag3">Wagner III</option>
-						<option value="wag4">Wagner IV</option>
-						<option value="wag5">Wagner V</option>
-						<option value="wag6">Wagner VI</option>
-						<option value="wag7">Wagner VII</option>
-						<option value="weren">Werenskiold I</option>
-						<option value="wink1">Winkel I</option>
-						<option value="wink2">Winkel II</option>
-						<option value="wintri">Winkel Tripel</option>
-					</select>
-				</td>
-				<td><button type="button" onclick="addrow()">+</button></td>
-			</tr>
-			<tr align="center">
-				<td colspan="4"><input type="text" size="24" name="XXX" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X0')"></td>
-				<td colspan="4"><input type="text" size="24" name="YYY" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y0')"></td>
-				<td>Эллипсоид</td>
-				<td colspan="2">
-					<select size="1" name="ellps" id="ellps">
-					<option value="MERIT">MERIT 1983</option>
-					<option value="SGS85">Soviet Geodetic System 85</option>
-					<option value="GRS80">GRS 1980(IUGG, 1980)</option>
-					<option value="IAU76">IAU 1976</option>
-					<option value="airy">Airy 1830</option>
-					<option value="APL4.9">Appl. Physics. 1965</option>
-					<option value="NWL9D">Naval Weapons Lab., 1965</option>
-					<option value="mod_airy">Modified Airy</option>
-					<option value="andrae">Andrae 1876 (Den., Iclnd.)</option>
-					<option value="aust_SA">Australian Natl & S. Amer. 1969</option>
-					<option value="GRS67">GRS 67(IUGG 1967)</option>
-					<option value="bessel">Bessel 1841</option>
-					<option value="bess_nam">Bessel 1841 (Namibia)</option>
-					<option value="clrk66">Clarke 1866</option>
-					<option value="clrk80">Clarke 1880 mod.</option>
-					<option value="clrk80ign">Clarke 1880 (IGN).</option>
-					<option value="CPM">Comm. des Poids et Mesures 1799</option>
-					<option value="delmbr">Delambre 1810 (Belgium)</option>
-					<option value="engelis">Engelis 1985</option>
-					<option value="evrst30">Everest 1830</option>
-					<option value="evrst48">Everest 1948</option>
-					<option value="evrst56">Everest 1956</option>
-					<option value="evrst69">Everest 1969</option>
-					<option value="evrstSS">Everest (Sabah & Sarawak)</option>
-					<option value="fschr60">Fischer (Mercury Datum) 1960</option>
-					<option value="fschr60m">Modified Fischer 1960</option>
-					<option value="fschr68">Fischer 1968</option>
-					<option value="helmert">Helmert 1906</option>
-					<option value="hough">Hough</option>
-					<option value="intl">International 1909 (Hayford)</option>
-					<option selected value="krass">Krassovsky, 1942</option>
-					<option value="kaula">Kaula 1961</option>
-					<option value="lerch">Lerch 1979</option>
-					<option value="mprts">Maupertius 1738</option>
-					<option value="new_intl">New International 1967</option>
-					<option value="plessis">Plessis 1817 (France)</option>
-					<option value="SEasia">Southeast Asia</option>
-					<option value="walbeck">Walbeck</option>
-					<option value="WGS60">WGS 60</option>
-					<option value="WGS66">WGS 66</option>
-					<option value="WGS72">WGS 72</option>
-					<option value="WGS84">WGS 84</option>
-					<option value="sphere">Normal Sphere (r=6370997)</option>
-					</select>
-				</td>
-			</tr>
-			<tr align="center">
-				<td>DD°</td>
-				<td>MM'</td>
-				<td colspan="2">SS.SSSS''</td>
-				<td>DD°</td>
-				<td>MM'</td>
-				<td colspan="2">SS.SSSS''</td>
-				<td><button type="button" onClick="window.location.reload()">CLEAR</button></td>
-			</tr>
-			<tr align="center">
-				<td><input type="text" size="2" maxlength="2" name="XXD" id="0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="XXM" id="0" pattern="\d{0,2}" value="" onchange="s2m('X0')"></td>
-				<td colspan="2"><input type="text" size="8" name="XXS" id="0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYD" id="0" pattern="\d{0,3}" value="" onchange="s2m('Y0')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYM" id="0" pattern="\d{0,2}" value="" onchange="s2m('Y0')"></td>
-				<td colspan="2"><input type="text" size="8" name="YYS" id="0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y0')"></td>
-				<td><button type="button" onClick="poj_parametr()">PROJ!</button></td>
-		</tbody>
-	</table>
-	<table name="TBL" id="TBL1" width="100%" align="center">
-		<caption>Геодезические пункты</caption>
-		<tbody>
-			<tr align="center">
-				<td rowspan="2">№</td>
-				<td rowspan="2">Акт.</td>
-				<td rowspan="2">Имя геопункта</td>
-				<td colspan="3">ХХ.ХХХХ°</td>
-				<td rowspan="2">Метры X</td>
-				<td colspan="3">YY.YYYY°</td>
-				<td rowspan="2">Метры Y</td>
-				<td rowspan="2">Невязка Х m</td>
-				<td rowspan="2">Невязка Y m</td>
-				<td rowspan="2">Невязка XY m</td>
-			</tr>
-			<tr align="center">
-				<td>DD°</td>
-				<td>MM'</td>
-				<td>SS.SSSS''</td>
-				<td>DD°</td>
-				<td>MM'</td>
-				<td>SS.SSSS''</td>
-			</tr>
-			<tr align="center" id="1" name="th">
-				<td rowspan="2">1</td>
-				<td rowspan="2"><input type="checkbox" name="active" id="1" value="1" onchange="act('1')" checked><button type="button" onclick="delrow('1')">-</button></td>
-				<td rowspan="2"><input type="text" size="8" name="NickName" value=""></td>
-				<td colspan="3"><input type="text" size="20" name="XXX" id="1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X1')"></td>
-				<td rowspan="2"><input type="text" size="20" name="MXX" id="1" pattern="\d*((\.|,)\d*)?" value=""></td>
-				<td colspan="3"><input type="text" size="20" name="YYY" id="1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y1')"></td>
-				<td rowspan="2"><input type="text" size="20" name="MYY" id="1" pattern="\d*((\.|,)\d*)?" value=""></td>
-				<td rowspan="2"><section name="NVX" id="1"></section></td>
-				<td rowspan="2"><section name="NVY" id="1"></section></td>
-				<td rowspan="2"><section name="NXY" id="1"></section></td>
-			</tr>
-			<tr align="center" id="1" name="tl">
-				<td><input type="text" size="2" maxlength="2" name="XXD" id="1" pattern="\d{0,3}" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="XXM" id="1" pattern="\d{0,2}" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="8" name="XXS" id="1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYD" id="1" pattern="\d{0,3}" value="" onchange="s2m('Y1')"></td>
-				<td><input type="text" size="2" maxlength="2" name="YYM" id="1" pattern="\d{0,2}" value="" onchange="s2m('Y1')"></td>
-				<td><input type="text" size="8" name="YYS" id="1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y1')"></td>
-			</tr>
-		</tbody>
-	</table>
-	<button type="button" onclick="addrow()">+</button>
-</form>
+	<form method="post">
+		<table name="TBL" id="TBL0" width="95%" align="center">
+			<tbody>
+				<tr align="center">
+					<td colspan="4">Долгота центральной точки</td>
+					<td colspan="4">Широта центральной точки</td>
+					<td colspan="3">Датум и проекция</td>
+					<td colspan="1">Управление</td>
+				</tr>
+				<tr align="center">
+					<td colspan="4">XX.XXXXX°</td>
+					<td colspan="4">YY.YYYYY°</td>
+					<td>Проекция</td>
+					<td colspan="2">
+						<select size="1" name="proj" id="projselect">
+							<option value="aea">Albers Equal Area</option>
+							<option value="aeqd">Azimuthal Equidistant</option>
+							<option value="airy">Airy</option>
+							<option value="aitoff">Aitoff</option>
+							<option value="alsk">Mod. Stereographic of Alaska</option>
+							<option value="apian">Apian Globular I</option>
+							<option value="august">August Epicycloidal</option>
+							<option value="bacon">Bacon Globular</option>
+							<option value="bipc">Bipolar conic of western hemisphere</option>
+							<option value="boggs">Boggs Eumorphic</option>
+							<option value="bonne">Bonne (Werner lat_1=90)</option>
+							<option value="calcofi">Cal Coop Ocean Fish Invest Lines/Stations</option>
+							<option value="cass">Cassini</option>
+							<option value="cc">Central Cylindrical</option>
+							<option value="cea">Equal Area Cylindrical</option>
+							<option value="chamb">Chamberlin Trimetric</option>
+							<option value="collg">Collignon</option>
+							<option value="comill">Compact Miller</option>
+							<option value="crast">Craster Parabolic (Putnins P4)</option>
+							<option value="denoy">Denoyer Semi-Elliptical</option>
+							<option value="eck1">Eckert I</option>
+							<option value="eck2">Eckert II</option>
+							<option value="eck3">Eckert III</option>
+							<option value="eck4">Eckert IV</option>
+							<option value="eck5">Eckert V</option>
+							<option value="eck6">Eckert VI</option>
+							<option value="eqc">Equidistant Cylindrical (Plate Caree)</option>
+							<option value="eqdc">Equidistant Conic</option>
+							<option value="euler">Euler</option>
+							<option value="etmerc">Extended Transverse Mercator</option>
+							<option value="fahey">Fahey</option>
+							<option value="fouc">Foucaut</option>
+							<option value="fouc_s">Foucaut Sinusoidal</option>
+							<option value="gall">Gall (Gall Stereographic)</option>
+							<option value="geos">Geostationary Satellite View</option>
+							<option value="gins8">Ginsburg VIII (TsNIIGAiK)</option>
+							<option value="gn_sinu">General Sinusoidal Series</option>
+							<option value="gnom">Gnomonic</option>
+							<option value="goode">Goode Homolosine</option>
+							<option value="gs48">Mod. Stereographic of 48 U.S.</option>
+							<option value="gs50">Mod. Stereographic of 50 U.S.</option>
+							<option value="hammer">Hammer & Eckert-Greifendorff</option>
+							<option value="hatano">Hatano Asymmetrical Equal Area</option>
+							<option value="healpix">HEALPix</option>
+							<option value="rhealpix">rHEALPix</option>
+							<option value="igh">Interrupted Goode Homolosine</option>
+							<option value="imw_p">International Map of the World Polyconic</option>
+							<option value="isea">Icosahedral Snyder Equal Area</option>
+							<option value="kav5">Kavraisky V</option>
+							<option value="kav7">Kavraisky VII</option>
+							<option value="krovak">Krovak</option>
+							<option value="labrd">Laborde</option>
+							<option value="laea">Lambert Azimuthal Equal Area</option>
+							<option value="lagrng">Lagrange</option>
+							<option value="larr">Larrivee</option>
+							<option value="lask">Laskowski</option>
+							<option value="lonlat">Lat/long (Geodetic)</option>
+							<option value="latlon">Lat/long (Geodetic alias)</option>
+							<option value="lcc">Lambert Conformal Conic</option>
+							<option value="lcca">Lambert Conformal Conic Alternative</option>
+							<option value="leac">Lambert Equal Area Conic</option>
+							<option value="lee_os">Lee Oblated Stereographic</option>
+							<option value="loxim">Loximuthal</option>
+							<option value="lsat">Space oblique for LANDSAT</option>
+							<option value="mbt_s">McBryde-Thomas Flat-Polar Sine (No. 1)</option>
+							<option value="mbt_fps">McBryde-Thomas Flat-Pole Sine (No. 2)</option>
+							<option value="mbtfpp">McBride-Thomas Flat-Polar Parabolic</option>
+							<option value="mbtfpq">McBryde-Thomas Flat-Polar Quartic</option>
+							<option value="mbtfps">McBryde-Thomas Flat-Polar Sinusoidal</option>
+							<option value="merc">Mercator</option>
+							<option value="mil_os">Miller Oblated Stereographic</option>
+							<option value="mill">Miller Cylindrical</option>
+							<option value="misrsom">Space oblique for MISR</option>
+							<option value="moll">Mollweide</option>
+							<option value="murd1">Murdoch I</option>
+							<option value="murd2">Murdoch II</option>
+							<option value="murd3">Murdoch III</option>
+							<option value="natearth">Natural Earth</option>
+							<option value="natearth2">Natural Earth 2</option>
+							<option value="nell">Nell</option>
+							<option value="nell_h">Nell-Hammer</option>
+							<option value="nicol">Nicolosi Globular</option>
+							<option value="nsper">Near-sided perspective</option>
+							<option value="nzmg">New Zealand Map Grid</option>
+							<option value="ob_tran">General Oblique Transformation</option>
+							<option value="ocea">Oblique Cylindrical Equal Area</option>
+							<option value="oea">Oblated Equal Area</option>
+							<option selected value="omerc">Oblique Mercator</option>
+							<option value="ortel">Ortelius Oval</option>
+							<option value="ortho">Orthographic</option>
+							<option value="pconic">Perspective Conic</option>
+							<option value="patterson">Patterson Cylindrical</option>
+							<option value="poly">Polyconic (American)</option>
+							<option value="putp1">Putnins P1</option>
+							<option value="putp2">Putnins P2</option>
+							<option value="putp3">Putnins P3</option>
+							<option value="putp3p">Putnins P3'</option>
+							<option value="putp4p">Putnins P4'</option>
+							<option value="putp5">Putnins P5</option>
+							<option value="putp5p">Putnins P5'</option>
+							<option value="putp6">Putnins P6</option>
+							<option value="putp6p">Putnins P6'</option>
+							<option value="qua_aut">Quartic Authalic</option>
+							<option value="qsc">Quadrilateralized Spherical Cube</option>
+							<option value="robin">Robinson</option>
+							<option value="rouss">Roussilhe Stereographic</option>
+							<option value="rpoly">Rectangular Polyconic</option>
+							<option value="sch">Spherical Cross-track Height</option>
+							<option value="sinu">Sinusoidal (Sanson-Flamsteed)</option>
+							<option value="somerc">Swiss. Obl. Mercator</option>
+							<option value="stere">Stereographic</option>
+							<option value="sterea">Oblique Stereographic Alternative</option>
+							<option value="gstmerc">Gauss-Schreiber Transverse Mercator</option>
+							<option value="tcc">Transverse Central Cylindrical</option>
+							<option value="tcea">Transverse Cylindrical Equal Area</option>
+							<option value="times">Times</option>
+							<option value="tissot">Tissot</option>
+							<option value="tmerc">Transverse Mercator</option>
+							<option value="tpeqd">Two Point Equidistant</option>
+							<option value="tpers">Tilted perspective</option>
+							<option value="ups">Universal Polar Stereographic</option>
+							<option value="urm5">Urmaev V</option>
+							<option value="urmfps">Urmaev Flat-Polar Sinusoidal</option>
+							<option value="utm">Universal Transverse Mercator (UTM)</option>
+							<option value="vandg">van der Grinten (I)</option>
+							<option value="vandg2">van der Grinten II</option>
+							<option value="vandg3">van der Grinten III</option>
+							<option value="vandg4">van der Grinten IV</option>
+							<option value="vitk1">Vitkovsky I</option>
+							<option value="wag1">Wagner I (Kavraisky VI)</option>
+							<option value="wag2">Wagner II</option>
+							<option value="wag3">Wagner III</option>
+							<option value="wag4">Wagner IV</option>
+							<option value="wag5">Wagner V</option>
+							<option value="wag6">Wagner VI</option>
+							<option value="wag7">Wagner VII</option>
+							<option value="weren">Werenskiold I</option>
+							<option value="wink1">Winkel I</option>
+							<option value="wink2">Winkel II</option>
+							<option value="wintri">Winkel Tripel</option>
+						</select>
+					</td>
+					<td><button type="button" onclick="addrow()">+</button></td>
+				</tr>
+				<tr align="center">
+					<td colspan="4"><input type="text" size="24" name="XXX" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X0')"></td>
+					<td colspan="4"><input type="text" size="24" name="YYY" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y0')"></td>
+					<td>Эллипсоид</td>
+					<td colspan="2">
+						<select size="1" name="ellps" id="ellps">
+						<option value="MERIT">MERIT 1983</option>
+						<option value="SGS85">Soviet Geodetic System 85</option>
+						<option value="GRS80">GRS 1980(IUGG, 1980)</option>
+						<option value="IAU76">IAU 1976</option>
+						<option value="airy">Airy 1830</option>
+						<option value="APL4.9">Appl. Physics. 1965</option>
+						<option value="NWL9D">Naval Weapons Lab., 1965</option>
+						<option value="mod_airy">Modified Airy</option>
+						<option value="andrae">Andrae 1876 (Den., Iclnd.)</option>
+						<option value="aust_SA">Australian Natl & S. Amer. 1969</option>
+						<option value="GRS67">GRS 67(IUGG 1967)</option>
+						<option value="bessel">Bessel 1841</option>
+						<option value="bess_nam">Bessel 1841 (Namibia)</option>
+						<option value="clrk66">Clarke 1866</option>
+						<option value="clrk80">Clarke 1880 mod.</option>
+						<option value="clrk80ign">Clarke 1880 (IGN).</option>
+						<option value="CPM">Comm. des Poids et Mesures 1799</option>
+						<option value="delmbr">Delambre 1810 (Belgium)</option>
+						<option value="engelis">Engelis 1985</option>
+						<option value="evrst30">Everest 1830</option>
+						<option value="evrst48">Everest 1948</option>
+						<option value="evrst56">Everest 1956</option>
+						<option value="evrst69">Everest 1969</option>
+						<option value="evrstSS">Everest (Sabah & Sarawak)</option>
+						<option value="fschr60">Fischer (Mercury Datum) 1960</option>
+						<option value="fschr60m">Modified Fischer 1960</option>
+						<option value="fschr68">Fischer 1968</option>
+						<option value="helmert">Helmert 1906</option>
+						<option value="hough">Hough</option>
+						<option value="intl">International 1909 (Hayford)</option>
+						<option selected value="krass">Krassovsky, 1942</option>
+						<option value="kaula">Kaula 1961</option>
+						<option value="lerch">Lerch 1979</option>
+						<option value="mprts">Maupertius 1738</option>
+						<option value="new_intl">New International 1967</option>
+						<option value="plessis">Plessis 1817 (France)</option>
+						<option value="SEasia">Southeast Asia</option>
+						<option value="walbeck">Walbeck</option>
+						<option value="WGS60">WGS 60</option>
+						<option value="WGS66">WGS 66</option>
+						<option value="WGS72">WGS 72</option>
+						<option value="WGS84">WGS 84</option>
+						<option value="sphere">Normal Sphere (r=6370997)</option>
+						</select>
+					</td>
+				</tr>
+				<tr align="center">
+					<td>DD°</td>
+					<td>MM'</td>
+					<td colspan="2">SS.SSSS''</td>
+					<td>DD°</td>
+					<td>MM'</td>
+					<td colspan="2">SS.SSSS''</td>
+					<td><button type="button" onClick="window.location.reload()">CLEAR</button></td>
+				</tr>
+				<tr align="center">
+					<td><input type="text" size="2" maxlength="2" name="XXD" id="0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>
+					<td><input type="text" size="2" maxlength="2" name="XXM" id="0" pattern="\d{0,2}" value="" onchange="s2m('X0')"></td>
+					<td colspan="2"><input type="text" size="8" name="XXS" id="0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X0')"></td>
+					<td><input type="text" size="2" maxlength="2" name="YYD" id="0" pattern="\d{0,3}" value="" onchange="s2m('Y0')"></td>
+					<td><input type="text" size="2" maxlength="2" name="YYM" id="0" pattern="\d{0,2}" value="" onchange="s2m('Y0')"></td>
+					<td colspan="2"><input type="text" size="8" name="YYS" id="0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y0')"></td>
+					<td><button type="button" onClick="poj_parametr()">PROJ!</button></td>
+			</tbody>
+		</table>
+		<table name="TBL" id="TBL1" width="100%" align="center">
+			<caption>Геодезические пункты</caption>
+			<tbody>
+				<tr align="center">
+					<td rowspan="2">№</td>
+					<td rowspan="2">Акт.</td>
+					<td rowspan="2">Имя геопункта</td>
+					<td colspan="3">ХХ.ХХХХ°</td>
+					<td rowspan="2">Метры X</td>
+					<td colspan="3">YY.YYYY°</td>
+					<td rowspan="2">Метры Y</td>
+					<td rowspan="2">Невязка Х m</td>
+					<td rowspan="2">Невязка Y m</td>
+					<td rowspan="2">Невязка XY m</td>
+				</tr>
+				<tr align="center">
+					<td>DD°</td>
+					<td>MM'</td>
+					<td>SS.SSSS''</td>
+					<td>DD°</td>
+					<td>MM'</td>
+					<td>SS.SSSS''</td>
+				</tr>
+				<tr align="center" id="1" name="th">
+					<td rowspan="2">1</td>
+					<td rowspan="2"><input type="checkbox" name="active" id="1" value="1" onchange="act('1')" checked><button type="button" onclick="delrow('1')">-</button></td>
+					<td rowspan="2"><input type="text" size="8" name="NickName" value=""></td>
+					<td colspan="3"><input type="text" size="20" name="XXX" id="1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X1')"></td>
+					<td rowspan="2"><input type="text" size="20" name="MXX" id="1" pattern="\d*((\.|,)\d*)?" value=""></td>
+					<td colspan="3"><input type="text" size="20" name="YYY" id="1" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y1')"></td>
+					<td rowspan="2"><input type="text" size="20" name="MYY" id="1" pattern="\d*((\.|,)\d*)?" value=""></td>
+					<td rowspan="2"><section name="NVX" id="1"></section></td>
+					<td rowspan="2"><section name="NVY" id="1"></section></td>
+					<td rowspan="2"><section name="NXY" id="1"></section></td>
+				</tr>
+				<tr align="center" id="1" name="tl">
+					<td><input type="text" size="2" maxlength="2" name="XXD" id="1" pattern="\d{0,3}" value="" onchange="s2m('X1')"></td>
+					<td><input type="text" size="2" maxlength="2" name="XXM" id="1" pattern="\d{0,2}" value="" onchange="s2m('X1')"></td>
+					<td><input type="text" size="8" name="XXS" id="1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('X1')"></td>
+					<td><input type="text" size="2" maxlength="2" name="YYD" id="1" pattern="\d{0,3}" value="" onchange="s2m('Y1')"></td>
+					<td><input type="text" size="2" maxlength="2" name="YYM" id="1" pattern="\d{0,2}" value="" onchange="s2m('Y1')"></td>
+					<td><input type="text" size="8" name="YYS" id="1" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y1')"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" onclick="addrow()">+</button>
+	</form>
+	<div id='map'></div>
+	<script>
+		var map = L.map('map', {
+			maxZoom: 40,
+			layers: [],
+			zoom: 10,
+			center:[60, 29.99]
+		});
+
+
+		map.restoreView();
+	 //   map.setView([60, 29.99], 10);
+
+		//===============================================
+
+
+		var layer_OSM_streets =
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+				id: 'mapbox.streets',
+				maxZoom: 40
+			}).addTo(map);
+
+		// выбор карт тут: https://leaflet-extras.github.io/leaflet-providers/preview/
+
+		var World_Physical_Map = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			maxZoom: 40
+		});
+
+
+		//===============================================
+		//Задание основных слоев. Два слоя карты и два слоя точек
+		var baseLayers = {
+			"World_Physical_Map": World_Physical_Map,
+			"OSM": layer_OSM_streets
+		};
+
+
+		var Point_wgs = L.layerGroup().addTo(map);
+		var Point_msk = L.layerGroup().addTo(map);
+		var center_msk = L.layerGroup().addTo(map);
+
+
+		var overlays = {
+			"WGS ГГС": Point_wgs,
+			"MSK ГГС": Point_msk,
+			"MSK Центр": center_msk
+		};
+
+		L.control.layers(baseLayers, overlays).addTo(map);
+		L.control.scale().addTo(map);
+
+	</script>
 </body>
 </html>
