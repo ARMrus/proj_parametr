@@ -81,23 +81,64 @@ function additionCord(element, index, array) {
 }
 
 function newSkPoint(element, index, array) {
+  let tpsnform_wgsmsk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);      //Пересчитываем точку по вычисленным параметрам
+  let tpsnform_mskwgs = proj4(conform.projstring,wgs_proj,[element.msk_x,element.msk_y]);      //Пересчитываем точку по вычисленным параметрам
   //В связи с нерешенной проблемой в proj4js  с gamma  https://github.com/proj4js/proj4js/issues/301
   //Для конечного вычисления точек по полученным парамметрам, будем считать координаты
   //на projbin на стороне сервера, для чего будем обращаться с функицей на сервер, где скрипт на php
   //будет обращаться к команде echo Xmsk Ymsk | cs2cs proj_string +to +init=epsg:4326 и парсить ответ передавая его браузеру
-  let tpsnform_msk = proj4(wgs_proj,conform.projstring,[element.wgs_x,element.wgs_y]);      //Пересчитываем точку по вычисленным параметрам
-  point_arr[index].transform_x = tpsnform_msk[0];
-  point_arr[index].transform_y = tpsnform_msk[1];
-  point_arr[index].vx = point_arr[index].msk_x - point_arr[index].transform_x;              //Выясняем разницу между исходной коодинате X для точки в МСК и пересчитанной по выявленным параметрам
-  point_arr[index].vy = point_arr[index].msk_y - point_arr[index].transform_y;              //Выясняем разницу между исходной коодинате Y для точки в МСК и пересчитанной по выявленным параметрам
-  point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);  //Выясняем общую невязку для точки в МСК и пересчитанной по выявленным параметрам
-  if(element.active){
-    point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
-    point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
+  //ajax
+  const request = new XMLHttpRequest();
+  const url = "projbin.php";
+  const params = "projstring=" + encodeURIComponent(conform.projstring) + "&wgs_x=" + element.wgs_x + "&wgs_y=" + element.wgs_y + "&msk_x=" + element.msk_x + "&msk_y=" + element.msk_y;
+  request.open('POST', url, true);
+  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.addEventListener("readystatechange", () => {
+    if (request.readyState === 4 && request.status === 200) {
+      let arr_projBin = request.responseText.split(/[\t|\s*]/);
+      tpsnform_wgsmsk[0] = Number.parseFloat(arr_projBin[3]);
+      tpsnform_wgsmsk[1] = Number.parseFloat(arr_projBin[4]);
+      tpsnform_mskwgs[0] = Number.parseFloat(arr_projBin[0]);
+      tpsnform_mskwgs[1] = Number.parseFloat(arr_projBin[1]);
+      //////////////////////////////////////////////////////////////
+      point_arr[index].transform_x = tpsnform_wgsmsk[0];
+      point_arr[index].transform_y = tpsnform_wgsmsk[1];
+      point_arr[index].transform_wgs_x = tpsnform_mskwgs[0];
+      point_arr[index].transform_wgs_y = tpsnform_mskwgs[1];
+      point_arr[index].vx = point_arr[index].msk_x - point_arr[index].transform_x;              //Выясняем разницу между исходной коодинате X для точки в МСК и пересчитанной по выявленным параметрам
+      point_arr[index].vy = point_arr[index].msk_y - point_arr[index].transform_y;              //Выясняем разницу между исходной коодинате Y для точки в МСК и пересчитанной по выявленным параметрам
+      point_arr[index].v = Math.sqrt(point_arr[index].vx * point_arr[index].vx + point_arr[index].vy * point_arr[index].vy);  //Выясняем общую невязку для точки в МСК и пересчитанной по выявленным параметрам
+      if(element.active){
+        point_arr[index].vconform_x = (conform.h_0 * point_arr[index].intermediary_x + conform.h_1 * point_arr[index].intermediary_y + conform.proj_x) - point_arr[index].msk_x;  //Выясняем невязку конфорного преобразования по X
+        point_arr[index].vconform_y = ((0 - conform.h_1) * point_arr[index].intermediary_x + conform.h_0 * point_arr[index].intermediary_y + conform.proj_y) - point_arr[index].msk_y; //Выясняем невязку конфорного преобразования по Y
+      }
+      //////////////////////////////////////////////////////////////
+    }
+  });
+  request.send(params);
+}
+
+var NewPoint_count = 0;
+function okNewPoint(element, index, array) {
+  if(element.transform_x > 0)
+    NewPoint_count = NewPoint_count + 1;
+}
+function postconform(centrPoint) {
+  console.log(centrPoint);
+  point_arr.forEach(okNewPoint);
+  if(point_arr.length != NewPoint_count){
+    // console.log("ждем");
+    setTimeout(postconform, 200, centrPoint);
+    return;
   }
-  tpsnform_msk = proj4(conform.projstring,wgs_proj,[element.msk_x,element.msk_y]);      //Пересчитываем точку по вычисленным параметрам
-  point_arr[index].transform_wgs_x = tpsnform_msk[0];
-  point_arr[index].transform_wgs_y = tpsnform_msk[1];
+  else{
+    //Тут все что следует после пересчета координат (вывод на карту и тд.)
+    console.log(point_arr);
+    //console.log(conform);
+    point_arr.forEach(PointAddAll);
+    center_msk_map(centrPoint.wgs_x,centrPoint.wgs_y);
+    return;
+  }
 }
 
 function count_activ_point(sum, current) {
@@ -108,7 +149,7 @@ function count_activ_point(sum, current) {
 
 function poj_parametr() {
   point_arr = [];
-  let arrp = {};
+  let centrPoint = {};
   secondProjection ="";
   conform = {
     "summ_intermediary_x":0,
@@ -133,13 +174,13 @@ function poj_parametr() {
     "det":0,
     "rotation":0};
 
-  arrp.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
-  arrp.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
-  if (arrp.wgs_x && arrp.wgs_y) {
+  centrPoint.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
+  centrPoint.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
+  if (centrPoint.wgs_x && centrPoint.wgs_y) {
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
-    secondProjection = secondProjection + " +lat_0=" + arrp.wgs_y;
-    secondProjection = secondProjection + " +lonc=" + arrp.wgs_x;
-    secondProjection = secondProjection + " +alpha=-0.01 +k=1 +x_0=0 +y_0=0 +gamma=0";
+    secondProjection = secondProjection + " +lat_0=" + centrPoint.wgs_y;
+    secondProjection = secondProjection + " +lonc=" + centrPoint.wgs_x;
+    secondProjection = secondProjection + " +alpha=-0.00001 +k=1 +x_0=0 +y_0=0 +gamma=0";
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
     // console.log(secondProjection);
     var row_geopoint = document.querySelectorAll(`[name="th"]`);
@@ -175,22 +216,17 @@ function poj_parametr() {
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
     secondProjection = secondProjection + " +lonc=" + Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
-    secondProjection = secondProjection + " +alpha=-0.01";
+    secondProjection = secondProjection + " +alpha=-0.00001";
     secondProjection = secondProjection + " +k=" + conform.scale;
     secondProjection = secondProjection + " +x_0=" + conform.proj_x;
     secondProjection = secondProjection + " +y_0=" + conform.proj_y;
     secondProjection = secondProjection + " +gamma=" + conform.rotation;  //К сожалению на момент написание кода проблема в proj4js  с gamma не решена https://github.com/proj4js/proj4js/issues/301
     secondProjection = secondProjection + " +ellps=" + document.getElementById('ellps').value;
     conform.projstring = secondProjection;
-    console.log(conform.rotation);
+    // console.log(conform.rotation);
     console.log(conform.projstring);
     point_arr.forEach(newSkPoint);
-
-
-    console.log(point_arr);
-    console.log(conform);
-    point_arr.forEach(PointAddAll);
-    center_msk_map(arrp.wgs_x,arrp.wgs_y);
+    postconform(centrPoint);
   }
   else {
     // Тут надо подсветить поля для обязательного заполнения
