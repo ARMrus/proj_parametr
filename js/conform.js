@@ -63,9 +63,11 @@ function summCord(element, index, array) {
   conform.summ_msk_y += element.msk_y;
 }
 
+var activ_ggs;
 function additionCord(element, index, array) {
   if(!element.active)
     return;
+  activ_ggs = activ_ggs + 1;  //Считаем активные точки
   /* вычислить разности */
   point_arr[index].dx_intermediary = element.intermediary_x - conform.intermediary_x_centr;
   point_arr[index].dx_msk = element.msk_x - conform.msk_x_centr;
@@ -117,24 +119,24 @@ function newSkPoint(element, index, array) {
   });
   request.send(params);
 }
-
-function clearPointTransform(element, index, array) {
-  point_arr[index].intermediary_x = 0;
-  point_arr[index].intermediary_y = 0;
-  point_arr[index].dx_intermediary = 0;
-  point_arr[index].dx_msk = 0;
-  point_arr[index].dy_intermediary = 0;
-  point_arr[index].dy_msk = 0;
-  point_arr[index].transform_x = 0;
-  point_arr[index].transform_y = 0;
-  point_arr[index].transform_wgs_x = 0;
-  point_arr[index].transform_wgs_y = 0;
-  point_arr[index].vx = 0;
-  point_arr[index].vy = 0;
-  point_arr[index].v = 0;
-  point_arr[index].vconform_x = 0;
-  point_arr[index].vconform_y = 0;
-}
+//
+// function clearPointTransform(element, index, array) {
+//   point_arr[index].intermediary_x = 0;
+//   point_arr[index].intermediary_y = 0;
+//   point_arr[index].dx_intermediary = 0;
+//   point_arr[index].dx_msk = 0;
+//   point_arr[index].dy_intermediary = 0;
+//   point_arr[index].dy_msk = 0;
+//   point_arr[index].transform_x = 0;
+//   point_arr[index].transform_y = 0;
+//   point_arr[index].transform_wgs_x = 0;
+//   point_arr[index].transform_wgs_y = 0;
+//   point_arr[index].vx = 0;
+//   point_arr[index].vy = 0;
+//   point_arr[index].v = 0;
+//   point_arr[index].vconform_x = 0;
+//   point_arr[index].vconform_y = 0;
+// }
 
 var NewPoint_count;
 function okNewPoint(element, index, array) {
@@ -167,6 +169,7 @@ function count_activ_point(sum, current) {
 
 function poj_parametr() {
   NewPoint_count = 0;
+  activ_ggs = 0;
   point_arr = [];
   let centrPoint = {};
   secondProjection ="";
@@ -196,7 +199,7 @@ function poj_parametr() {
   centrPoint.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
   centrPoint.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
   if (centrPoint.wgs_x && centrPoint.wgs_y) {
-    point_arr.forEach(clearPointTransform);   //Удаляем всю информацию о трансформации из массива точек
+    // point_arr.forEach(clearPointTransform);   //Удаляем всю информацию о трансформации из массива точек
     secondProjection = "+proj=" + document.querySelectorAll(`[id="projselect"]`)[0].value;
     secondProjection = secondProjection + " +lat_0=" + centrPoint.wgs_y;
     secondProjection = secondProjection + " +lonc=" + centrPoint.wgs_x;
@@ -222,6 +225,10 @@ function poj_parametr() {
     conform.msk_y_centr = (conform.summ_msk_y) / count_ggs_activ;
     /* подсчитать сумму произведений */
     point_arr.forEach(additionCord);
+    if(activ_ggs < 3){
+      alert("Необходимо минимум три активные точки WGS - MSK");
+      return;
+    }
     /* найти первичные параметры */
     conform.det = conform.sdxy_0 + conform.sdxy_2;
     conform.h_0 = (conform.sdxy_3 + conform.sdxy_6) / conform.det;
@@ -249,7 +256,7 @@ function poj_parametr() {
     postconform(centrPoint);
   }
   else {
-    // Тут надо подсветить поля для обязательного заполнения
+    alert("Укажите центральную точку");
     return;
   }
 }
