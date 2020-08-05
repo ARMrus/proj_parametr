@@ -7,7 +7,6 @@
   <script src="js/proj2.6.js"></script>
   <script src="js/conform.js"></script>
 
-  <script src="test.geojson.js"></script>
 
   <!-- leaflet -->
   <link rel="stylesheet" href="css/leaflet.css" />
