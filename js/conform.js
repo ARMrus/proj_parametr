@@ -27,16 +27,15 @@ var conform = {
 
 function str_tab(element, index, array) {
   let active = element.querySelectorAll(`[name="active"]`)[0];
-  // if(active.checked == true){
-    let arrp = {};
-    arrp.wgs_x = Number.parseFloat(element.querySelectorAll(`[name="XXX"]`)[0].value);
-    arrp.wgs_y = Number.parseFloat(element.querySelectorAll(`[name="YYY"]`)[0].value);
-    arrp.msk_x = Number.parseFloat(element.querySelectorAll(`[name="MXX"]`)[0].value);
-    arrp.msk_y = Number.parseFloat(element.querySelectorAll(`[name="MYY"]`)[0].value);
-    arrp.active = active.checked;
-    arrp.name = element.querySelectorAll(`[name="NickName"]`)[0].value;
-    point_arr.push(arrp);
-  // }
+  let arrp = {};
+  arrp.wgs_x = Number.parseFloat(element.querySelectorAll(`[name="XXX"]`)[0].value);
+  arrp.wgs_y = Number.parseFloat(element.querySelectorAll(`[name="YYY"]`)[0].value);
+  arrp.msk_x = Number.parseFloat(element.querySelectorAll(`[name="MXX"]`)[0].value);
+  arrp.msk_y = Number.parseFloat(element.querySelectorAll(`[name="MYY"]`)[0].value);
+  arrp.id_dom = element.querySelectorAll(`[id]`)[0].value;
+  arrp.active = active.checked;
+  arrp.name = element.querySelectorAll(`[name="NickName"]`)[0].value;
+  point_arr.push(arrp);
 }
 
 function filter_point(point_to_filter) {
