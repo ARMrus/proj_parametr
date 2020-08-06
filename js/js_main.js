@@ -239,3 +239,15 @@ function s2m(my_id){
     }
   }
 }
+function print_parmetr() {
+  //Указываем невязки
+  point_arr.forEach(function(item, i, arr) {
+  let str_nvx = document.querySelectorAll(`[name="NVX"][id="${item.id_dom}"]`)[0];
+  str_nvx.textContent = item.vx;
+  let str_nvy = document.querySelectorAll(`[name="NVY"][id="${item.id_dom}"]`)[0];
+  str_nvy.textContent = item.vy;
+  let str_nxy = document.querySelectorAll(`[name="NXY"][id="${item.id_dom}"]`)[0];
+  str_nxy.textContent = item.v;
+  //Выводим строчку параметров ск
+});
+}

@@ -143,7 +143,7 @@ function okNewPoint(element, index, array) {
     NewPoint_count = NewPoint_count + 1;
 }
 function postconform(centrPoint) {
-  console.log(centrPoint);
+  // console.log(centrPoint);
   point_arr.forEach(okNewPoint);
   if(point_arr.length > NewPoint_count){
     // console.log("ждем");
@@ -152,8 +152,9 @@ function postconform(centrPoint) {
   }
   else{
     //Тут все что следует после пересчета координат (вывод на карту и тд.)
-    console.log(point_arr);
+    // console.log(point_arr);
     //console.log(conform);
+    print_parmetr();  //Выводим невязки
     point_arr.forEach(PointAddAll);
     center_msk_map(centrPoint.wgs_x,centrPoint.wgs_y);
     return;
