@@ -83,6 +83,8 @@ function addrow(){
   var rows_end = tbl.getElementsByTagName('tr');
   var id_end_rows = rows_end[rows_end.length -1].id;
   var rownum = parseInt(id_end_rows.replace(/\D+/g,""))+1;
+  if(!rownum)
+    rownum = 1;
   var newRow = tbl.insertRow(lastrow() * 2 + 2);
   newRow.align = "center";
   newRow.id = rownum;
