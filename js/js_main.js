@@ -252,8 +252,9 @@ function print_parmetr() {
     str_nxy.textContent = item.v;
   });
   //Выводим строчку параметров ск
-  let print_parametr = document.querySelector(`section[name="print_parmetr"]`);
-  let proj_string_dom = document.createElement('details');
-  proj_string_dom.innerHTML = conform.projstring;
-  print_parametr.append(proj_string_dom);
+  let print_parametr = document.querySelector(`section[name="print_parmetr"]`); //Узел куда будем выводить параметры МСК
+  print_parametr.innerHTML = "";              //очищаем от прежнего содержимого
+  let proj_string_dom = document.createElement('details');  //создаем для proj строки узел
+  proj_string_dom.innerHTML = "<summary>PROJ4 строка параметров</summary><p>" + conform.projstring + "</p>";
+  print_parametr.append(proj_string_dom); // выводим строку
 }
