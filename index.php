@@ -11,6 +11,10 @@
 	input[type="text"] {border: 0px solid #cccccc; border-radius: 0px; background:  inherit; outline: none; color: inherit;}
 	select {border-radius: 0; background: #eeeeee; font-size: 10px; padding: 1px; border: 1; line-height: 1; width: 100%;}
 	button {background-color: #eeeeee; border: none; padding: 3px 3px; text-align: center; font-size: 10px; text-decoration: none; width: 100%;}
+	#map {
+		width: 100%;
+		height: 600px;
+	}
 </style>
 <script src="js/js_main.js"></script>
 <script src="js/proj2.6.js"></script>
@@ -23,12 +27,9 @@
 <script src="js/leaflet.restoreview.js"></script>
 <script src="js/leaflet.awesome-markers.js"></script>
 <script src="js/map.js"></script>
-	<style>
-		#map {
-			width: 100%;
-			height: 600px;
-		}
-	</style>
+<script>
+	const url = "projbin.php";
+</script>
 </head>
 <body>
   <?php
