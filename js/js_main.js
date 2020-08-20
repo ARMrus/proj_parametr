@@ -12,13 +12,6 @@ function lastrow(){
   return Math.trunc(rowCount / 2 -1);
 }
 
-function mnnrefresh(){
-  // var cnt;
-  // for(cnt = 1;cnt <= lastrow();cnt++){
-  //   mnn(cnt);
-  // }
-}
-
 function mnn(myrow){
   // var th = document.getElementsByName('th');
   // var tl = document.getElementsByName('tl');

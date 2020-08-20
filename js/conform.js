@@ -90,7 +90,6 @@ function newSkPoint(element, index, array) {
   //будет обращаться к команде echo Xmsk Ymsk | cs2cs proj_string +to +init=epsg:4326 и парсить ответ передавая его браузеру
   //ajax
   const request = new XMLHttpRequest();
-  const url = "projbin.php";
   const params = "projstring=" + encodeURIComponent(conform.projstring) + "&wgs_x=" + element.wgs_x + "&wgs_y=" + element.wgs_y + "&msk_x=" + element.msk_x + "&msk_y=" + element.msk_y;
   request.open('POST', url, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
