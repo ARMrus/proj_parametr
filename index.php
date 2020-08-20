@@ -30,7 +30,7 @@
 		}
 	</style>
 </head>
-<body onload="mnnrefresh()">
+<body>
   <?php
   include('proj.html');
   ?>
