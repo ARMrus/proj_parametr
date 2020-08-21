@@ -33,6 +33,7 @@ function str_tab(element, index, array) {
   arrp.msk_x = Number.parseFloat(element.querySelectorAll(`[name="MXX"]`)[0].value);
   arrp.msk_y = Number.parseFloat(element.querySelectorAll(`[name="MYY"]`)[0].value);
   arrp.id_dom = element.querySelectorAll(`[id]`)[0].value;
+  // console.log(element.querySelectorAll(`[id]`)[0]);
   arrp.active = active.checked;
   arrp.name = element.querySelectorAll(`[name="NickName"]`)[0].value;
   point_arr.push(arrp);
@@ -252,6 +253,7 @@ function poj_parametr() {
     // console.log(conform.rotation);
     console.log(conform.projstring);
     point_arr.forEach(newSkPoint);
+    console.log(point_arr);
     postconform(centrPoint);
   }
   else {
