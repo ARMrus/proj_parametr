@@ -3,16 +3,16 @@
 		<table name="TBL" id="TBL0" width="95%" align="center">
 			<tbody>
 				<tr align="center">
-					<td colspan="4">Долгота центральной точки</td>
-					<td colspan="4">Широта центральной точки</td>
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде">Долгота центральной точки</td>
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде">Широта центральной точки</td>
 					<td colspan="3">Датум и проекция</td>
 					<td colspan="1">Управление</td>
 				</tr>
 				<tr align="center">
-					<td colspan="4">XX.XXXXX°</td>
-					<td colspan="4">YY.YYYYY°</td>
-					<td>Проекция</td>
-					<td colspan="2">
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде">XX.XXXXX°</td>
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде">YY.YYYYY°</td>
+					<td title="Проекция на территории РФ очень часто используется Oblique Mercator">Проекция</td>
+					<td colspan="2" title="Проекция на территории РФ очень часто используется Oblique Mercator">
 						<select size="1" name="proj" id="projselect">
 							<option value="aea">Albers Equal Area</option>
 							<option value="aeqd">Azimuthal Equidistant</option>
@@ -159,10 +159,10 @@
 					<td><button type="button" onclick="addrow()">+</button></td>
 				</tr>
 				<tr align="center">
-					<td colspan="4"><input type="text" size="24" name="XXX" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X0')"></td>
-					<td colspan="4"><input type="text" size="24" name="YYY" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y0')"></td>
-					<td>Эллипсоид</td>
-					<td colspan="2">
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде"><input type="text" size="24" name="XXX" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('X0')"></td>
+					<td colspan="4" title="Произвольная точка вокруг которой развертывается проекция. Можно предсатвить как место развертывания проекции на Эллипсоиде"><input type="text" size="24" name="YYY" id="0" pattern="\d{1,3}((\.|,)\d*)?" value="" onchange="m2s('Y0')"></td>
+					<td title="Эллипсоид на территории РФ очень часто используется Krassovsky, 1942">Эллипсоид</td>
+					<td colspan="2" title="Эллипсоид на территории РФ очень часто используется Krassovsky, 1942">
 						<select size="1" name="ellps" id="ellps">
 						<option value="MERIT">MERIT 1983</option>
 						<option value="SGS85">Soviet Geodetic System 85</option>
@@ -217,7 +217,7 @@
 					<td>DD°</td>
 					<td>MM'</td>
 					<td colspan="2">SS.SSSS''</td>
-					<td><button type="button" onClick="window.location.reload()">CLEAR</button></td>
+					<td title="Полностью отчистить таблицу геопунктов"><button type="button" onClick="window.location.reload()">CLEAR</button></td>
 				</tr>
 				<tr align="center">
 					<td><input type="text" size="2" maxlength="2" name="XXD" id="0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>
@@ -226,7 +226,7 @@
 					<td><input type="text" size="2" maxlength="2" name="YYD" id="0" pattern="\d{0,3}" value="" onchange="s2m('Y0')"></td>
 					<td><input type="text" size="2" maxlength="2" name="YYM" id="0" pattern="\d{0,2}" value="" onchange="s2m('Y0')"></td>
 					<td colspan="2"><input type="text" size="8" name="YYS" id="0" pattern="\d{0,2}((\.|,)\d*)?" value="" onchange="s2m('Y0')"></td>
-					<td><button type="button" onClick="poj_parametr()">PROJ!</button></td>
+					<td title="Расчитать параметры перехода MSK -> WGS84"><button type="button" onClick="poj_parametr()">GO!</button></td>
 			</tbody>
 		</table>
 		<table name="TBL" id="TBL1" width="100%" align="center">
@@ -234,15 +234,15 @@
 			<tbody>
 				<tr align="center">
 					<td rowspan="2">№</td>
-					<td rowspan="2">Акт.</td>
+					<td rowspan="2" title="Сняв галку, геопунк не участвует в расчете параметров преобразования МСК. Невязка расчитывается для контроля.">Актив</td>
 					<td rowspan="2">Имя геопункта</td>
-					<td colspan="3">ХХ.ХХХХ°</td>
-					<td rowspan="2">Метры X</td>
-					<td colspan="3">YY.YYYY°</td>
-					<td rowspan="2">Метры Y</td>
-					<td rowspan="2">Невязка Х m</td>
-					<td rowspan="2">Невязка Y m</td>
-					<td rowspan="2">Невязка XY m</td>
+					<td colspan="3" title="WGS84 измеренные на геопункте">ХХ.ХХХХ° Долгота</td>
+					<td rowspan="2" title="Каталожные координаты в МСК. ВАЖНО!!! - оси координат поменянны местами, геодезический Y на восток соответсвует данному столбцу">Метры X (Геодезический Y)</td>
+					<td colspan="3" title="WGS84 измеренные на геопункте">YY.YYYY° Широта</td>
+					<td rowspan="2" title="Каталожные координаты в МСК. ВАЖНО!!! - оси координат поменянны местами, геодезический Х на север соответсвует данному столбцу">Метры Y (Геодезический X)</td>
+					<td rowspan="2" title="Невязка по восточному направлению между каталожными координатами и полученными координатами путем пересчета WGS координат измерений с использованием полученных параметров перехода МСК">Невязка Х m</td>
+					<td rowspan="2" title="Невязка по северному направлению между каталожными координатами и полученными координатами путем пересчета WGS координат измерений с использованием полученных параметров перехода МСК">Невязка Y m</td>
+					<td rowspan="2" title="Невязка между каталожными координатами и полученными координатами путем пересчета WGS координат измерений с использованием полученных параметров перехода МСК">Невязка XY m</td>
 				</tr>
 				<tr align="center">
 					<td>DD°</td>
