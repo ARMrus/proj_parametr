@@ -133,7 +133,7 @@ function newSkPoint(element, index, array) {
   //ajax
   const request = new XMLHttpRequest();
   const params = "projstring=" + encodeURIComponent(conform.projstring) + "&wgs_x=" + element.wgs_x + "&wgs_y=" + element.wgs_y + "&msk_x=" + element.msk_x + "&msk_y=" + element.msk_y;
-  request.open('POST', url, true);
+  request.open('POST', url_projbin, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.addEventListener("readystatechange", () => {
     if (request.readyState === 4 && request.status === 200) {
@@ -198,6 +198,7 @@ function postconform(centrPoint) {
     print_parmetr();  //Выводим невязки
     point_arr.forEach(PointAddAll);
     center_msk_map(centrPoint.wgs_x,centrPoint.wgs_y);
+    save_proj();
     return;
   }
 }

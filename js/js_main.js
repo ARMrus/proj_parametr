@@ -275,6 +275,10 @@ function s2m(my_id){
     }
   }
 }
+
+//----------------------------------------------
+//Вывод информации о параметрах МСК на страницу
+//----------------------------------------------
 function print_parmetr() {
   //Указываем невязки
   point_arr.forEach(function(item, i, arr) {
@@ -291,4 +295,24 @@ function print_parmetr() {
   let proj_string_dom = document.createElement('details');  //создаем для proj строки узел
   proj_string_dom.innerHTML = "<summary>PROJ4 строка параметров</summary><p>" + conform.projstring + "</p>";
   print_parametr.append(proj_string_dom); // выводим строку
+}
+
+//----------------------------------------------
+//Сохраняем параметры МСК в БД
+//----------------------------------------------
+function save_proj() {
+  //ajax
+  const request = new XMLHttpRequest();
+  let params = {
+    "proj":conform,
+    "point":point_arr};
+  request.open('POST', url_save, true);
+  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.addEventListener("readystatechange", () => {
+    if (request.readyState === 4 && request.status === 200) {
+      // let arr_save = request.responseText.split(/[\t|\s*]/);
+      // alert(arr_save);
+    }
+  });
+  request.send("data=" + JSON.stringify(params));
 }
