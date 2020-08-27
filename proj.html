@@ -1,4 +1,43 @@
+<!--// Copyright © 2020 Ryabov Alex
+// Contacts:
+//  email: armrus@armrus.org
+//  url: armrus.org
+//  tel: +79119220535
+// License: https://git.armrus.org/open-source/gis/proj_parametr/blob/master/COPYING
 
+/*
+This file is part of proj_parametr.
+
+    proj_parametr is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    proj_parametr is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with proj_parametr.  If not, see <https://www.gnu.org/licenses/>.
+
+  (Этот файл — часть proj_parametr.
+
+   proj_parametr - свободная программа: вы можете перераспространять ее и/или
+   изменять ее на условиях Стандартной общественной лицензии GNU в том виде,
+   в каком она была опубликована Фондом свободного программного обеспечения;
+   либо версии 3 лицензии, либо (по вашему выбору) любой более поздней
+   версии.
+
+   proj_parametr распространяется в надежде, что она будет полезной,
+   но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+   или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
+   общественной лицензии GNU.
+
+   Вы должны были получить копию Стандартной общественной лицензии GNU
+   вместе с этой программой. Если это не так, см.
+   <https://www.gnu.org/licenses/>.)
+ -->
 	<form method="post">
 		<table name="TBL" id="TBL0" width="95%" align="center">
 			<tbody>
@@ -218,6 +257,20 @@
 					<td>MM'</td>
 					<td colspan="2">SS.SSSS''</td>
 					<td title="Полностью отчистить таблицу геопунктов"><button type="button" onClick="window.location.reload()">CLEAR</button></td>
+					<td colspan="3" rowspan="2" nowrap>
+						<a href="https://armrus.org/extranet/forum/forum37/7082-veb-forma-dlya-rascheta-parametrov-msk-v-formate-proj4-dlya-gis" target="_blank">
+							<img src="icon/group-chat.svg" alt="форум" height="40px" style="margin-right: 20px;">
+						</a>
+						<a href="https://git.armrus.org/open-source/gis/proj_parametr" target="_blank">
+							<img src="icon/gitlab-icon.svg" alt="source" height="40px" style="margin-right: 20px;">
+						</a>
+						<a href="https://github.com/ARMrus/proj_parametr" target="_blank">
+							<img src="icon/github.svg" alt="github" height="40px" style="margin-right: 20px;">
+						</a>
+						<a href="https://git.armrus.org/open-source/gis/proj_parametr/blob/master/COPYING" target="_blank">
+							<img src="icon/License_icon-gpl-4.svg" alt="LICENSE" height="40px" style="margin-right: 20px;">
+						</a>
+					</td>
 				</tr>
 				<tr align="center">
 					<td><input type="text" size="2" maxlength="2" name="XXD" id="0" pattern="\d{0,3}" value="" onchange="s2m('X0')"></td>

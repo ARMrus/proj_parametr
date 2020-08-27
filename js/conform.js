@@ -1,3 +1,44 @@
+// Copyright © 2020 Ryabov Alex
+// Contacts:
+//  email: armrus@armrus.org
+//  url: armrus.org
+//  tel: +79119220535
+// License: https://git.armrus.org/open-source/gis/proj_parametr/blob/master/COPYING
+
+/*
+This file is part of proj_parametr.
+
+    proj_parametr is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    proj_parametr is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with proj_parametr.  If not, see <https://www.gnu.org/licenses/>.
+
+  (Этот файл — часть proj_parametr.
+
+   proj_parametr - свободная программа: вы можете перераспространять ее и/или
+   изменять ее на условиях Стандартной общественной лицензии GNU в том виде,
+   в каком она была опубликована Фондом свободного программного обеспечения;
+   либо версии 3 лицензии, либо (по вашему выбору) любой более поздней
+   версии.
+
+   proj_parametr распространяется в надежде, что она будет полезной,
+   но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+   или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
+   общественной лицензии GNU.
+
+   Вы должны были получить копию Стандартной общественной лицензии GNU
+   вместе с этой программой. Если это не так, см.
+   <https://www.gnu.org/licenses/>.)
+   */
+
 var point_arr = [];    //Массив точек для расчета параметров
 // var wgs_proj ='+proj=longlat +datum=WGS84 +no_defs';
 var wgs_proj ='EPSG:4326';  //СК для картографии и спутниковых измерений. Возможно сделаем ее выбираемой из списка в будущем.
@@ -92,7 +133,7 @@ function newSkPoint(element, index, array) {
   //ajax
   const request = new XMLHttpRequest();
   const params = "projstring=" + encodeURIComponent(conform.projstring) + "&wgs_x=" + element.wgs_x + "&wgs_y=" + element.wgs_y + "&msk_x=" + element.msk_x + "&msk_y=" + element.msk_y;
-  request.open('POST', url, true);
+  request.open('POST', url_projbin, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.addEventListener("readystatechange", () => {
     if (request.readyState === 4 && request.status === 200) {
@@ -157,6 +198,7 @@ function postconform(centrPoint) {
     print_parmetr();  //Выводим невязки
     point_arr.forEach(PointAddAll);
     center_msk_map(centrPoint.wgs_x,centrPoint.wgs_y);
+    save_proj();
     return;
   }
 }

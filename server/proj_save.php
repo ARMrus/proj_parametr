@@ -1,4 +1,5 @@
-<!--// Copyright © 2020 Ryabov Alex
+<?php
+// Copyright © 2020 Ryabov Alex
 // Contacts:
 //  email: armrus@armrus.org
 //  url: armrus.org
@@ -37,45 +38,9 @@ This file is part of proj_parametr.
    Вы должны были получить копию Стандартной общественной лицензии GNU
    вместе с этой программой. Если это не так, см.
    <https://www.gnu.org/licenses/>.)
- -->
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Proj4</title>
-<style type="text/css">
-	body {font: normal 10px Verdana, Arial, sans-serif;}
-	table {border-collapse: collapse;}
-	table, th, td {border: 1px solid silver; padding: 1px 2px; }
-	tr {background: #ffffff; color: #4a4a4a;}
-	input[type="text"] {border: 0px solid #cccccc; border-radius: 0px; background:  inherit; outline: none; color: inherit;}
-	select {border-radius: 0; background: #eeeeee; font-size: 10px; padding: 1px; border: 1; line-height: 1; width: 100%;}
-	button {background-color: #eeeeee; border: none; padding: 3px 3px; text-align: center; font-size: 10px; text-decoration: none; width: 100%;}
-	#map {
-		width: 100%;
-		height: 600px;
-	}
-</style>
-<script src="js/js_main.js"></script>
-<script src="js/proj2.6.js"></script>
-<script src="js/conform.js"></script>
+*/
+//Тут код для сохранения параметров в бд
+// require_once 'vendor/autoload.php';     //Подключаем geoPHP
+$data_arr = json_decode($_POST["data"], true);
 
-<!-- leaflet -->
-<link rel="stylesheet" href="css/leaflet.css" />
-<link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
-<script src="js/leaflet.js"></script>
-<script src="js/leaflet.restoreview.js"></script>
-<script src="js/leaflet.awesome-markers.js"></script>
-<script src="js/map.js"></script>
-<script>
-	//config
-	const url_projbin = "server/projbin.php";
-	const url_save = "server/proj_save.php";
-</script>
-</head>
-<body>
-  <?php
-  include('proj.html');
-  ?>
-</body>
-</html>
+?>
