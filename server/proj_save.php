@@ -39,8 +39,26 @@ This file is part of proj_parametr.
    вместе с этой программой. Если это не так, см.
    <https://www.gnu.org/licenses/>.)
 */
+ini_set('display_errors', true);
+error_reporting(E_ALL);
 //Тут код для сохранения параметров в бд
 // require_once 'vendor/autoload.php';     //Подключаем geoPHP
-$data_arr = json_decode($_POST["data"], true);
+// $data_arr = json_decode($_POST["data"], true);
 
+GLOBAL $db_pg;
+//GLOBAL $db_msk;
+if(!$db_pg)
+{
+	$db_pg = pg_connect ("host=192.168.1.16 port=5432 dbname=kpt user=geo password=y7mbhp"); //Тут параметры подключения к своей БД postgres
+	if(!$db_pg)
+	{
+    echo "\nError : Unable to open database kpt\n";
+		exit;
+	}
+}
+
+pg_send_prepare($db_pg, "proj", "SELECT * from proj.load_from_json($1)");
+$res = pg_get_result($db_pg);
+pg_send_execute($db_pg, "proj", array($_POST["data"]) );
+$res = pg_get_result($db_pg);
 ?>
