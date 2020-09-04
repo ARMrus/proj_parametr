@@ -1,4 +1,5 @@
-<!--// Copyright © 2020 Ryabov Alex
+<?php
+// Copyright © 2020 Ryabov Alex
 // Contacts:
 //  email: armrus@armrus.org
 //  url: armrus.org
@@ -37,46 +38,44 @@ This file is part of proj_parametr.
    Вы должны были получить копию Стандартной общественной лицензии GNU
    вместе с этой программой. Если это не так, см.
    <https://www.gnu.org/licenses/>.)
- -->
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Proj4</title>
-<style type="text/css">
-	body {font: normal 10px Verdana, Arial, sans-serif;}
-	table {border-collapse: collapse;}
-	table, th, td {border: 1px solid silver; padding: 1px 2px; }
-	tr {background: #ffffff; color: #4a4a4a;}
-	input[type="text"] {border: 0px solid #cccccc; border-radius: 0px; background:  inherit; outline: none; color: inherit;}
-	select {border-radius: 0; background: #eeeeee; font-size: 10px; padding: 1px; border: 1; line-height: 1; width: 100%;}
-	button {background-color: #eeeeee; border: none; padding: 3px 3px; text-align: center; font-size: 10px; text-decoration: none; width: 100%;}
-	#map {
-		width: 100%;
-		height: 600px;
-	}
-</style>
-<script src="js/js_main.js"></script>
-<script src="js/proj2.6.js"></script>
-<script src="js/conform.js"></script>
+*/
+ini_set('display_errors', true);
+error_reporting(E_ALL);
+// print_r($_POST);
+//gdalsrsinfo  -V -e -o all "+proj=omerc +lat_0=59.8338730825 +lonc=29.9351669792 +alpha=-0.00001 +k=1.0000175220647542 +x_0=2193212.730322072 +y_0=425057.6548207395 +gamma=0.8783860937457706 +ellps=krass"
+//echo $_POST['data'];
+// exec('gdalsrsinfo -V -o 0 '.$_POST['data'],$out);
+// $srs['Validate'] = implode($out);
+// $out = [];
+//
+// exec('gdalsrsinfo -e -o 0 '.$_POST['data'],$out);
+// $srs['EPSG'] = implode($out);
+// $out = [];
+//
+// exec('gdalsrsinfo -o PROJJSON '.$_POST['data'],$out);
+// $srs['PROJJSON'] = implode($out);
+// $out = [];
+//
+// exec('gdalsrsinfo -o wkt1 '.$_POST['data'],$out);
+// $srs['wkt1'] = implode($out);
+// $out = [];
+//
+// exec('gdalsrsinfo -o wkt '.$_POST['data'],$out);
+// $srs['wkt'] = implode($out);
+// $out = [];
 
-<!-- leaflet -->
-<link rel="stylesheet" href="css/leaflet.css" />
-<link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
-<script src="js/leaflet.js"></script>
-<script src="js/leaflet.restoreview.js"></script>
-<script src="js/leaflet.awesome-markers.js"></script>
-<script src="js/map.js"></script>
-<script>
-	//config
-	const url_projbin = "server/projbin.php";
-	const url_save = "server/proj_save.php";
-	const url_wkt = "server/proj4_wkt.php";
-</script>
-</head>
-<body>
-  <?php
-  include('proj.html');
-  ?>
-</body>
-</html>
+exec('gdalsrsinfo -o wkt_esri '.$_POST['data'],$out);
+$srs['wkt_esri'] = implode($out);
+$out = [];
+
+exec('gdalsrsinfo -o mapinfo '.$_POST['data'],$out);
+$srs['mapinfo'] = implode($out);
+$out = [];
+
+// exec('gdalsrsinfo -o xml '.$_POST['data'],$out);
+// $srs['xml'] = implode($out);
+// $out = [];
+
+echo json_encode($srs);
+// echo exec('gdalsrsinfo  -V -e -o all "+proj=omerc +lat_0=59.8338730825 +lonc=29.9351669792 +alpha=-0.00001 +k=1.0000175879708246 +x_0=2193212.734006126 +y_0=425057.66367951926 +gamma=0.8784073860913444 +ellps=krass"');
+?>
