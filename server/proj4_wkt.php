@@ -39,8 +39,8 @@ This file is part of proj_parametr.
    вместе с этой программой. Если это не так, см.
    <https://www.gnu.org/licenses/>.)
 */
-ini_set('display_errors', true);
-error_reporting(E_ALL);
+// ini_set('display_errors', true);
+// error_reporting(E_ALL);
 // print_r($_POST);
 //gdalsrsinfo  -V -e -o all "+proj=omerc +lat_0=59.8338730825 +lonc=29.9351669792 +alpha=-0.00001 +k=1.0000175220647542 +x_0=2193212.730322072 +y_0=425057.6548207395 +gamma=0.8783860937457706 +ellps=krass"
 //echo $_POST['data'];
@@ -64,7 +64,7 @@ error_reporting(E_ALL);
 // $srs['wkt'] = implode($out);
 // $out = [];
 
-exec('gdalsrsinfo -o wkt_esri '.$_POST['data'],$out);
+exec('gdalsrsinfo -o wkt_esri '.$_POST['data'],$out); //https://gdal.org/programs/gdalsrsinfo.html описание команды
 $srs['wkt_esri'] = implode($out);
 $out = [];
 
