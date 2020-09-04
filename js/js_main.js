@@ -292,9 +292,22 @@ function print_parmetr() {
   //Выводим строчку параметров ск
   let print_parametr = document.querySelector(`section[name="print_parmetr"]`); //Узел куда будем выводить параметры МСК
   print_parametr.innerHTML = "";              //очищаем от прежнего содержимого
+
   let proj_string_dom = document.createElement('details');  //создаем для proj строки узел
   proj_string_dom.innerHTML = "<summary>PROJ4 строка параметров</summary><p>" + conform.projstring + "</p>";
   print_parametr.append(proj_string_dom); // выводим строку
+
+  let wkt_esri = document.createElement('details');  //создаем для proj строки узел
+  wkt_esri.innerHTML = "<summary>ESRI WKT format</summary><p>" + conform.wkt_etc.wkt_esri + "</p>";
+  print_parametr.append(wkt_esri); // выводим строку
+
+  // let xml_ = document.createElement('details');  //создаем для proj строки узел
+  // xml_.innerHTML = "<summary>XML format (GML based)</summary><p>" + conform.wkt_etc.xml + "</p>";
+  // print_parametr.append(xml_); // выводим строку
+
+  let mapinfo = document.createElement('details');  //создаем для proj строки узел
+  mapinfo.innerHTML = "<summary>Mapinfo style CoordSys format</summary><p>" + conform.wkt_etc.mapinfo + "</p>";
+  print_parametr.append(mapinfo); // выводим строку
 }
 
 //----------------------------------------------

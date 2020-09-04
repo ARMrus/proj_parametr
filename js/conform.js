@@ -64,7 +64,9 @@ var conform = {
   "proj_y":0,
   "scale":0,
   "det":0,
-  "rotation":0};
+  "rotation":0,
+  "projstring":"",
+  "wkt_etc":""};
 
 function str_tab(element, index, array) {
   let active = element.querySelectorAll(`[name="active"]`)[0];
@@ -159,24 +161,7 @@ function newSkPoint(element, index, array) {
   });
   request.send(params);
 }
-//
-// function clearPointTransform(element, index, array) {
-//   point_arr[index].intermediary_x = 0;
-//   point_arr[index].intermediary_y = 0;
-//   point_arr[index].dx_intermediary = 0;
-//   point_arr[index].dx_msk = 0;
-//   point_arr[index].dy_intermediary = 0;
-//   point_arr[index].dy_msk = 0;
-//   point_arr[index].transform_x = 0;
-//   point_arr[index].transform_y = 0;
-//   point_arr[index].transform_wgs_x = 0;
-//   point_arr[index].transform_wgs_y = 0;
-//   point_arr[index].vx = 0;
-//   point_arr[index].vy = 0;
-//   point_arr[index].v = 0;
-//   point_arr[index].vconform_x = 0;
-//   point_arr[index].vconform_y = 0;
-// }
+
 
 var NewPoint_count;
 function okNewPoint(element, index, array) {
@@ -186,7 +171,7 @@ function okNewPoint(element, index, array) {
 function postconform(centrPoint) {
   // console.log(centrPoint);
   point_arr.forEach(okNewPoint);
-  if(point_arr.length > NewPoint_count){
+  if((point_arr.length > NewPoint_count) || (conform.wkt_etc == false)){
     // console.log("ждем");
     setTimeout(postconform, 200, centrPoint);
     return;
@@ -194,7 +179,7 @@ function postconform(centrPoint) {
   else{
     //Тут все что следует после пересчета координат (вывод на карту и тд.)
     // console.log(point_arr);
-    //console.log(conform);
+    // console.log(conform);
     print_parmetr();  //Выводим невязки
     point_arr.forEach(PointAddAll);
     center_msk_map(centrPoint.wgs_x,centrPoint.wgs_y);
@@ -236,7 +221,9 @@ function poj_parametr() {
     "proj_x":0,
     "proj_y":0,
     "det":0,
-    "rotation":0};
+    "rotation":0,
+    "projstring":"",
+    "wkt_etc":""};
 
   centrPoint.wgs_x = Number.parseFloat(document.querySelectorAll(`[name="XXX"][id="0"]`)[0].value);
   centrPoint.wgs_y = Number.parseFloat(document.querySelectorAll(`[name="YYY"][id="0"]`)[0].value);
@@ -296,6 +283,19 @@ function poj_parametr() {
     console.log(conform.projstring);
     point_arr.forEach(newSkPoint);
     console.log(point_arr);
+    //ajax трансформация МСК
+    let request_wkt = new XMLHttpRequest();
+    request_wkt.responseType = 'json';
+    let params = encodeURIComponent(conform.projstring);
+    request_wkt.open('POST', url_wkt, true);
+    request_wkt.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request_wkt.addEventListener("readystatechange", () => {
+      if (request_wkt.readyState === 4 && request_wkt.status === 200) {
+        conform.wkt_etc = request_wkt.response;
+        // alert(arr_save);
+      }
+    });
+    request_wkt.send("data=" + JSON.stringify(params));
     postconform(centrPoint);
   }
   else {
